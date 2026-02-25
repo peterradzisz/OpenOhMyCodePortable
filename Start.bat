@@ -11,7 +11,7 @@ if "%PORTABLE_ROOT:~-1%"=="\" set "PORTABLE_ROOT=%PORTABLE_ROOT:~0,-1%"
 REM Set up paths to use portable Node.js
 set "NODE_HOME=%PORTABLE_ROOT%\nodejs"
 set "APP_HOME=%PORTABLE_ROOT%\app"
-set "PATH=%NODE_HOME%;%APP_HOME%\node_modules\.bin;%PATH%"
+set "PATH=%PORTABLE_ROOT%\bin;%NODE_HOME%;%APP_HOME%\node_modules\.bin;%PATH%"
 
 REM Set Node.js to use local modules
 set "NODE_PATH=%APP_HOME%\node_modules"

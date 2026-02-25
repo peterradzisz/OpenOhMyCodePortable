@@ -124,6 +124,88 @@
         "baseURL": "http://localhost:11434"
       },
       "models": {
+        "llama3.3": {
+          "name": "llama3.3:70b",
+          "limit": { "context": 128000, "output": 8192 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "qwen2.5": {
+          "name": "qwen2.5:72b",
+          "limit": { "context": 131072, "output": 8192 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "qwen2.5-coder": {
+          "name": "qwen2.5-coder:32b",
+          "limit": { "context": 131072, "output": 8192 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "deepseek-coder": {
+          "name": "deepseek-coder-v2:236b",
+          "limit": { "context": 131072, "output": 8192 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "mistral": {
+          "name": "mistral:7b",
+          "limit": { "context": 128000, "output": 4096 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "phi4": {
+          "name": "phi4:14b",
+          "limit": { "context": 131072, "output": 4096 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "-command-r": {
+          "name": "command-r:35b",
+          "limit": { "context": 131072, "output": 4096 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        }
+      }
+    },
+    "lmstudio": {
+      "name": "LM Studio (Local)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:1234/v1"
+      },
+      "models": {
+        "qwen3-30b": {
+          "name": "Qwen3-30B-A3B-Q4_K_M.gguf",
+          "limit": { "context": 131072, "output": 8192 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "qwen2.5-32b": {
+          "name": "Qwen2.5-32B-Instruct-Q4_K_M.gguf",
+          "limit": { "context": 131072, "output": 8192 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "llama3.3-70b": {
+          "name": "Llama-3.3-70B-Instruct-Q4_K_M.gguf",
+          "limit": { "context": 131072, "output": 8192 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "mistral-nemo": {
+          "name": "Mistral-Nemo-Instruct-2407-Q4_K_M.gguf",
+          "limit": { "context": 131072, "output": 4096 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "deepseek-coder": {
+          "name": "DeepSeek-Coder-V2-Instruct-Q4_K_M.gguf",
+          "limit": { "context": 131072, "output": 8192 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        },
+        "phi4": {
+          "name": "phi-4-Q4_K_M.gguf",
+          "limit": { "context": 131072, "output": 4096 },
+          "modalities": { "input": ["text"], "output": ["text"] }
+        }
+      }
+    }
+      "name": "Ollama (Local)",
+      "npm": "@ai-sdk/ollama",
+      "options": {
+        "baseURL": "http://localhost:11434"
+      },
+      "models": {
         "llama": {
           "name": "llama3.2",
           "limit": { "context": 128000, "output": 4096 },

@@ -1,40 +1,112 @@
 {
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "permission": {
+    "*": "ask",
+    "task": "allow",
+    "bash": "allow"
+  },
   "agents": {
+    "default": {
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "write": true,
+        "read": true,
+        "task": true,
+        "bash": true
+      }
+    },
     "explore": {
-      "model": "anthropic/sonnet"
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "task": true
+      },
+      "background": true
     },
     "oracle": {
-      "model": "anthropic/sonnet"
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "read": true,
+        "grep": true,
+        "bash": true,
+        "task": true
+      },
+      "background": true
     },
     "librarian": {
-      "model": "anthropic/haiku"
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "task": true
+      },
+      "background": true
     },
     "sisyphus": {
-      "model": "anthropic/sonnet"
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "write": true,
+        "read": true,
+        "grep": true,
+        "bash": true,
+        "task": true
+      }
     },
-    "frontend-ui-ux": {
-      "model": "anthropic/sonnet"
+    "prometheus": {
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "read": true,
+        "grep": true,
+        "task": true
+      }
+    },
+    "momus": {
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "read": true,
+        "grep": true,
+        "task": true
+      }
+    },
+    "frontend-ui-ux-engineer": {
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "write": true,
+        "read": true
+      }
     },
     "document-writer": {
-      "model": "anthropic/sonnet"
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "write": true,
+        "read": true
+      }
     },
     "multimodal-looker": {
-      "model": "google/pro"
+      "model": "opencode/big-pickle",
+      "tools": {
+        "edit": true,
+        "read": true
+      }
     }
   },
+  "_fallbackChain": {
+    "primary": "opencode/big-pickle"
+  },
   "_instructions": {
-    "note": "These are example model mappings. Adjust based on your API keys and preferences.",
-    "models": {
-      "anthropic/opus": "Claude Opus 4 - Most capable, slower",
-      "anthropic/sonnet": "Claude Sonnet 4 - Balanced performance",
-      "anthropic/haiku": "Claude 3.5 Haiku - Fast, efficient",
-      "openai/main": "GPT-4.1",
-      "openai/mini": "GPT-4.1-mini - Faster, cheaper",
-      "deepseek/main": "DeepSeek Coder - Great for code",
-      "groq/llama": "Llama 3.3 70B via Groq - Very fast",
-      "google/pro": "Gemini 2.5 Pro - Large context",
-      "google/flash": "Gemini 2.5 Flash - Fast"
-    }
+    "note": "Add your API keys and providers in opencode.json. This file only configures agents.",
+    "availableProviders": "See opencode.json for configured providers"
   }
 }
