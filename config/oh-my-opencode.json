@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "explore": {
+      "model": "anthropic/sonnet"
+    },
+    "oracle": {
+      "model": "anthropic/sonnet"
+    },
+    "librarian": {
+      "model": "anthropic/haiku"
+    },
+    "sisyphus": {
+      "model": "anthropic/sonnet"
+    },
+    "frontend-ui-ux": {
+      "model": "anthropic/sonnet"
+    },
+    "document-writer": {
+      "model": "anthropic/sonnet"
+    },
+    "multimodal-looker": {
+      "model": "google/pro"
+    }
+  },
+  "_instructions": {
+    "note": "These are example model mappings. Adjust based on your API keys and preferences.",
+    "models": {
+      "anthropic/opus": "Claude Opus 4 - Most capable, slower",
+      "anthropic/sonnet": "Claude Sonnet 4 - Balanced performance",
+      "anthropic/haiku": "Claude 3.5 Haiku - Fast, efficient",
+      "openai/main": "GPT-4.1",
+      "openai/mini": "GPT-4.1-mini - Faster, cheaper",
+      "deepseek/main": "DeepSeek Coder - Great for code",
+      "groq/llama": "Llama 3.3 70B via Groq - Very fast",
+      "google/pro": "Gemini 2.5 Pro - Large context",
+      "google/flash": "Gemini 2.5 Flash - Fast"
+    }
+  }
+}

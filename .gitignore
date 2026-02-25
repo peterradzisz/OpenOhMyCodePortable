@@ -1,7 +1,23 @@
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Windows
 *.tmp
 *.log
+
+# Build artifacts
+*.zip
+build.bat
+
+# Git
+.git/
+
+# Large folders (distributed via GitHub Releases)
+nodejs/
+app/node_modules/
+
+# Keep package files for reference
+!app/package.json
+!app/package-lock.json
