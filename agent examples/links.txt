@@ -1,0 +1,85 @@
+# Sources & Links for AGENTS.md Examples
+
+## Official & Primary Sources
+
+1. **agents.md (Official Standard)**
+   - URL: https://agents.md
+   - GitHub: https://github.com/agentsmd/agents.md
+   - Stars: 18,000+
+
+2. **OpenAI Codex Official AGENTS.md**
+   - URL: https://github.com/openai/codex/blob/main/AGENTS.md
+
+3. **awesome-agents-md (Curated List)**
+   - URL: https://github.com/Ischca/awesome-agents-md
+   - Stars: 40
+
+## Templates & Examples
+
+4. **Advanced Template**
+   - Source: https://github.com/Ischca/awesome-agents-md/tree/main/templates/advanced.md
+
+5. **Minimal Template**
+   - Source: https://github.com/Ischca/awesome-agents-md/tree/main/templates/minimal.md
+
+6. **Template by betatim (Gist)**
+   - URL: https://gist.github.com/betatim/4b205de0b762f8c7865ea2e0ea5c65b4
+
+7. **Agents.md Templates Collection**
+   - URL: https://github.com/kunal8164705/Agents.md-Templates
+
+## Real-World Examples
+
+8. **Apache Airflow (Python Monorepo)**
+   - URL: https://github.com/apache/airflow/blob/main/AGENTS.md
+
+9. **Temporal Java SDK**
+   - URL: https://github.com/temporalio/sdk-java/blob/main/AGENTS.md
+
+10. **OpenAI Codex Rust (codex-rs)**
+    - URL: https://github.com/openai/codex/blob/main/AGENTS.md
+
+## Guides & Tutorials
+
+11. **Developer Toolkit - AGENTS.md Setup**
+    - URL: https://developertoolkit.ai/en/codex/quick-start/agents-md/
+
+12. **Eric Ma - How to teach your coding agent with AGENTS.md**
+    - URL: https://ericmjl.github.io/blog/2025/10/4/how-to-teach-your-coding-agent-with-agentsmd/
+
+13. **Kaushik Gopal - Keep your AGENTS.md in sync**
+    - URL: https://kau.sh/blog/agents-md/
+
+14. **NeuralNine - How to Write AGENTS.md Files (YouTube)**
+    - URL: https://www.youtube.com/watch?v=6w88NVf2_lY
+
+## Related Tools
+
+15. **adiasg/agentsmd - Template tool for AGENTS.md**
+    - URL: https://github.com/adiasg/agentsmd
+
+16. **agentmd/agent.md - Universal Agent Configuration**
+    - URL: https://github.com/agentmd/agent.md
+
+## OpenCode Specific
+
+17. **OpenCode Documentation - AGENTS.md**
+    - URL: https://github.com/anomalyco/opencode/blob/dev/packages/web/src/content/docs/en/rules.mdx
+
+18. **oh-my-opencode**
+    - URL: https://github.com/code-yeongyu/oh-my-opencode
+    - Documentation: https://github.com/code-yeongyu/oh-my-opencode/tree/master/docs
+
+---
+
+# Additional Resources
+
+- OpenCode AI: https://opencode.ai
+- OpenCode Documentation: https://docs.opencode.ai
+- Claude Code: https://docs.anthropic.com/en/docs/claude-code
+- Cursor Rules: https://cursor.sh/docs/cursor-features#rules
+
+---
+
+**Last Updated**: February 2026
+**License**: CC0-1.0 (for curated links)
