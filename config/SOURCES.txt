@@ -1,0 +1,59 @@
+# Sources & References
+
+This bundle includes the following open-source projects:
+
+## Core Projects
+
+### OpenCode
+- **Repository**: https://github.com/opencode-ai/opencode
+- **License**: MIT
+- **Description**: AI-powered coding assistant CLI
+
+### oh-my-opencode
+- **Repository**: https://github.com/code-yeongyu/oh-my-opencode
+- **License**: SUL-1.0 (Source-Use License)
+- **Description**: Discipline agents and orchestration for OpenCode
+- **Documentation**: https://github.com/code-yeongyu/oh-my-opencode/tree/master/docs
+
+### Node.js
+- **Website**: https://nodejs.org
+- **Repository**: https://github.com/nodejs/node
+- **License**: MIT
+- **Version**: v22.14.0 LTS
+
+## Agent Information
+
+The agent configurations and descriptions in `!SAMPLE_AGENTS.md` are derived from:
+
+- oh-my-opencode README: https://github.com/code-yeongyu/oh-my-opencode/blob/master/README.md
+- oh-my-opencode Agent Types: https://github.com/code-yeongyu/oh-my-opencode/blob/master/src/agents/types.ts
+- oh-my-opencode Documentation: https://github.com/code-yeongyu/oh-my-opencode/tree/master/docs
+
+## Provider Documentation
+
+Model provider information sourced from official documentation:
+
+- **OpenAI**: https://platform.openai.com/docs
+- **Anthropic**: https://docs.anthropic.com
+- **DeepSeek**: https://platform.deepseek.com/docs
+- **Groq**: https://console.groq.com/docs
+- **Google AI**: https://ai.google.dev/docs
+- **OpenRouter**: https://openrouter.ai/docs
+- **Ollama**: https://ollama.ai/library
+- **LM Studio**: https://lmstudio.ai/docs
+
+## License Notice
+
+This portable bundle is provided as-is for convenience. Each component retains its original license:
+
+- OpenCode: MIT License
+- oh-my-opencode: SUL-1.0 License
+- Node.js: MIT License
+
+Users must obtain their own API keys for commercial services (OpenAI, Anthropic, etc.).
+
+---
+
+**Bundle Version**: 1.0.0
+**Created**: February 2026
+**Maintainer**: https://github.com/peterradzisz/OpenOhMyCodePortable
