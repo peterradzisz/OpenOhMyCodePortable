@@ -53,19 +53,58 @@ if not exist "%APP_HOME%\node_modules\opencode-ai\bin\opencode" (
     exit /b 1
 )
 
-REM Show folder picker using PowerShell
-echo Select your project folder...
-for /f "delims=" %%i in ('powershell -ExecutionPolicy Bypass -NoProfile -Command "Add-Type -AssemblyName System.Windows.Forms; $dialog = New-Object System.Windows.Forms.FolderBrowserDialog; $dialog.Description = 'Select your project folder to run OpenCode'; $dialog.ShowNewFolderButton = $false; $dialog.UseDescriptionForTitle = $true; $dialog.InitialDirectory = [Environment]::GetFolderPath('Desktop'); if ($dialog.ShowDialog() -eq 'OK') { $dialog.SelectedPath } else { '' }"') do set "PROJECT_FOLDER=%%i"
+:menu
+echo.
+echo Select an option:
+echo.
+echo   1. Run OpenCode (enter project path)
+echo   2. Run OpenCode in current folder
+echo   3. Open Worktree Menu
+echo   4. Exit
+echo.
+set /p CHOICE="Enter choice (1-4): "
 
-REM Check if folder was selected
+if "%CHOICE%"=="1" goto manual_path
+if "%CHOICE%"=="2" goto current_folder
+if "%CHOICE%"=="3" goto worktree_menu
+if "%CHOICE%"=="4" goto end
+
+echo Invalid choice. Please try again.
+goto menu
+
+:manual_path
+echo.
+echo Enter the full path to your project folder.
+echo Example: C:\Users\YourName\Projects\my-project
+echo.
+set /p PROJECT_FOLDER="Project path: "
+
+REM Remove quotes if present
+set PROJECT_FOLDER=%PROJECT_FOLDER:"=%
+
 if "%PROJECT_FOLDER%"=="" (
-    echo.
-    echo No folder selected. Exiting.
-    echo.
-    pause
-    exit /b 0
+    echo No path entered.
+    goto menu
 )
 
+if not exist "%PROJECT_FOLDER%" (
+    echo.
+    echo ERROR: Folder not found: %PROJECT_FOLDER%
+    echo Please check the path and try again.
+    goto menu
+)
+
+goto run_opencode
+
+:current_folder
+set "PROJECT_FOLDER=%PORTABLE_ROOT%"
+goto run_opencode
+
+:worktree_menu
+call "%PORTABLE_ROOT%\Worktree-Menu.bat"
+goto menu
+
+:run_opencode
 echo.
 echo Selected folder: %PROJECT_FOLDER%
 echo.
@@ -87,8 +126,12 @@ if %EXIT_CODE% neq 0 (
     echo.
 )
 
-echo Press any key to close...
+echo Press any key to return to menu...
 pause >nul
+goto menu
 
+:end
+echo.
+echo Goodbye!
 endlocal
-exit /b %EXIT_CODE%
+exit /b 0
