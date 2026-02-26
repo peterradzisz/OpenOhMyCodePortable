@@ -1,5 +1,7 @@
 # OpenOhMyCodePortable
 
+NOT YET TESTED.
+
 **Truly portable OpenCode + oh-my-opencode bundle for Windows.**
 
 No installation required. No Node.js needed. Just extract and run!
