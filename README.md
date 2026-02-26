@@ -1,6 +1,6 @@
 # OpenOhMyCodePortable
 
-NOT YET TESTED.
+NOT TESTED YET.
 
 **Truly portable OpenCode + oh-my-opencode bundle for Windows.**
 
