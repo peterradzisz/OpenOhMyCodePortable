@@ -34,16 +34,21 @@ echo.
 
 REM Check if Node.js exists
 if not exist "%NODE_HOME%\node.exe" (
+    echo.
     echo ERROR: Node.js not found at %NODE_HOME%\node.exe
     echo Please ensure the portable bundle is complete.
+    echo.
     pause
     exit /b 1
 )
 
 REM Check if opencode exists
 if not exist "%APP_HOME%\node_modules\opencode-ai\bin\opencode" (
+    echo.
     echo ERROR: OpenCode not found.
+    echo Looking for: %APP_HOME%\node_modules\opencode-ai\bin\opencode
     echo Please ensure the portable bundle is complete.
+    echo.
     pause
     exit /b 1
 )
@@ -54,7 +59,10 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy Bypass -NoProfile -Command
 
 REM Check if folder was selected
 if "%PROJECT_FOLDER%"=="" (
+    echo.
     echo No folder selected. Exiting.
+    echo.
+    pause
     exit /b 0
 )
 
@@ -70,4 +78,17 @@ cd /d "%PROJECT_FOLDER%"
 REM Run opencode using our portable Node.js
 "%NODE_HOME%\node.exe" "%APP_HOME%\node_modules\opencode-ai\bin\opencode" %*
 
+REM Capture exit code
+set EXIT_CODE=%ERRORLEVEL%
+
+echo.
+if %EXIT_CODE% neq 0 (
+    echo OpenCode exited with error code: %EXIT_CODE%
+    echo.
+)
+
+echo Press any key to close...
+pause >nul
+
 endlocal
+exit /b %EXIT_CODE%
