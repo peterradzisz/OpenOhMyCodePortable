@@ -24,477 +24,376 @@
     WINDOWSTATE="normal"
 />
 <style>
-/* ========== CSS Reset & Base ========== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-    /* VS Code Dark Theme Colors */
-    --bg-primary: #1e1e1e;
-    --bg-secondary: #252526;
-    --bg-tertiary: #2d2d2d;
-    --bg-hover: #37373d;
-    --bg-active: #094771;
-    
-    --border-color: #3c3c3c;
-    --border-focus: #007acc;
-    
-    --text-primary: #cccccc;
-    --text-secondary: #858585;
-    --text-active: #ffffff;
-    
-    --accent-blue: #007acc;
-    --accent-green: #4ec9b0;
-    --accent-orange: #ce9178;
-    --accent-yellow: #dcdcaa;
-    --accent-red: #f14c4c;
-    --accent-purple: #c586c0;
-    
-    --btn-primary: #0e639c;
-    --btn-primary-hover: #1177bb;
-    --btn-secondary: #3c3c3c;
-    --btn-secondary-hover: #4e4e4e;
-    --btn-danger: #c42b1c;
-    --btn-danger-hover: #d63a2a;
-    --btn-success: #1c6e1c;
-    --btn-success-hover: #2d8c2d;
-    
-    /* Spacing */
-    --spacing-xs: 4px;
-    --spacing-sm: 8px;
-    --spacing-md: 12px;
-    --spacing-lg: 16px;
-    --spacing-xl: 24px;
-    
-    /* Typography */
-    --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'Consolas', 'Courier New', monospace;
-    --font-size-xs: 11px;
-    --font-size-sm: 12px;
-    --font-size-md: 13px;
-    --font-size-lg: 14px;
-    --font-size-xl: 16px;
-    
-    /* Layout */
-    --sidebar-width: 48px;
-    --header-height: 35px;
-}
 
 html, body {
     height: 100%;
     overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 13px;
+    background: #1e1e1e;
+    color: #cccccc;
 }
 
-body {
-    font-family: var(--font-family);
-    font-size: var(--font-size-md);
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    display: flex;
-}
-
-/* ========== Layout ========== */
+/* Layout */
 .app {
-    display: flex;
     width: 100%;
     height: 100%;
+    display: table;
 }
 
-/* ========== Sidebar ========== */
+/* Sidebar */
 .sidebar {
-    width: var(--sidebar-width);
-    background: var(--bg-secondary);
-    border-right: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    padding: var(--spacing-sm) 0;
+    width: 48px;
+    height: 100%;
+    background: #333333;
+    border-right: 1px solid #3c3c3c;
+    display: table-cell;
+    vertical-align: top;
+    padding-top: 8px;
 }
 
 .sidebar-item {
-    width: var(--sidebar-width);
-    height: var(--sidebar-width);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
     cursor: pointer;
-    color: var(--text-secondary);
-    position: relative;
-    transition: color 0.15s;
+    color: #858585;
+    font-size: 20px;
 }
 
 .sidebar-item:hover {
-    color: var(--text-primary);
+    color: #ffffff;
+    background: #2a2d2e;
 }
 
 .sidebar-item.active {
-    color: var(--text-active);
+    color: #ffffff;
+    background: #094771;
 }
 
-.sidebar-item.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--accent-blue);
-}
-
-.sidebar-icon {
-    font-size: 24px;
-    font-weight: 300;
-    opacity: 0.9;
-}
-
-.sidebar-item:hover .sidebar-icon,
-.sidebar-item.active .sidebar-icon {
-    opacity: 1;
-}
-
-/* ========== Main Content ========== */
+/* Main Content */
 .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    height: 100%;
+    display: table-cell;
+    vertical-align: top;
 }
 
-/* ========== Header ========== */
+/* Header */
 .header {
-    height: var(--header-height);
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    padding: 0 var(--spacing-lg);
+    height: 35px;
+    background: #323233;
+    border-bottom: 1px solid #3c3c3c;
+    line-height: 35px;
+    padding: 0 16px;
 }
 
 .header-title {
-    font-size: var(--font-size-sm);
+    font-size: 12px;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: #858585;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* ========== Content Area ========== */
+/* Content */
 .content-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    height: calc(100% - 35px - 28px);
+    overflow: auto;
+    padding: 20px;
 }
 
 .panel {
     display: none;
-    flex: 1;
-    padding: var(--spacing-xl);
-    overflow-y: auto;
 }
 
 .panel.active {
     display: block;
 }
 
-/* ========== Sections ========== */
+/* Sections */
 .section {
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 24px;
 }
 
 .section-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--spacing-md);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #3c3c3c;
 }
 
 .section-title {
-    font-size: var(--font-size-sm);
+    font-size: 12px;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: #858585;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* ========== Form Elements ========== */
+/* Form */
 .form-row {
-    display: flex;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    align-items: flex-end;
+    margin-bottom: 12px;
+}
+
+.form-row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .form-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
+    margin-bottom: 8px;
 }
 
-.form-group.compact {
-    flex: 0 0 auto;
+.form-group.inline {
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 0;
+}
+
+.form-group.inline-btn {
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 0;
+    width: auto;
 }
 
 .form-label {
-    font-size: var(--font-size-xs);
-    color: var(--text-secondary);
-    font-weight: 500;
+    display: block;
+    font-size: 11px;
+    color: #858585;
+    margin-bottom: 4px;
 }
 
-.form-input,
-.form-select {
+.form-input, .form-select {
+    width: 100%;
     height: 28px;
-    padding: 0 var(--spacing-md);
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    border-radius: 2px;
-    color: var(--text-primary);
-    font-family: var(--font-family);
-    font-size: var(--font-size-md);
+    padding: 0 10px;
+    background: #3c3c3c;
+    border: 1px solid #3c3c3c;
+    color: #cccccc;
+    font-family: inherit;
+    font-size: 13px;
     outline: none;
-    transition: border-color 0.15s;
 }
 
-.form-input:focus,
-.form-select:focus {
-    border-color: var(--border-focus);
+.form-input:focus, .form-select:focus {
+    border-color: #007acc;
 }
 
-.form-input::placeholder {
-    color: var(--text-secondary);
+.form-group.inline .form-input,
+.form-group.inline .form-select {
+    width: 200px;
 }
 
-.form-select {
-    cursor: pointer;
+.form-group.inline-btn .form-input {
+    width: 350px;
 }
 
-/* ========== Buttons ========== */
+/* Buttons */
 .btn {
     height: 28px;
-    padding: 0 var(--spacing-lg);
+    padding: 0 16px;
     border: none;
-    border-radius: 2px;
-    font-family: var(--font-family);
-    font-size: var(--font-size-sm);
+    font-family: inherit;
+    font-size: 12px;
     font-weight: 500;
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    transition: background 0.15s;
-    white-space: nowrap;
+    color: #ffffff;
 }
 
 .btn-primary {
-    background: var(--btn-primary);
-    color: #fff;
+    background: #0e639c;
 }
 
 .btn-primary:hover {
-    background: var(--btn-primary-hover);
+    background: #1177bb;
 }
 
 .btn-secondary {
-    background: var(--btn-secondary);
-    color: var(--text-primary);
+    background: #3c3c3c;
+    color: #cccccc;
 }
 
 .btn-secondary:hover {
-    background: var(--btn-secondary-hover);
+    background: #4e4e4e;
 }
 
 .btn-success {
-    background: var(--btn-success);
-    color: #fff;
+    background: #1c6e1c;
 }
 
 .btn-success:hover {
-    background: var(--btn-success-hover);
+    background: #2d8c2d;
 }
 
 .btn-danger {
-    background: var(--btn-danger);
-    color: #fff;
+    background: #c42b1c;
 }
 
 .btn-danger:hover {
-    background: var(--btn-danger-hover);
+    background: #d63a2a;
 }
 
-.btn-icon {
-    width: 28px;
-    padding: 0;
-    justify-content: center;
+.btn-small {
+    height: 24px;
+    padding: 0 10px;
+    font-size: 11px;
 }
 
-.btn-group {
-    display: flex;
-    gap: var(--spacing-sm);
-    flex-wrap: wrap;
-}
-
-/* ========== Button Grid ========== */
+/* Button Grid */
 .btn-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: var(--spacing-sm);
+    overflow: hidden;
 }
 
 .btn-grid .btn {
-    width: 100%;
-    justify-content: flex-start;
+    float: left;
+    margin: 0 8px 8px 0;
+    min-width: 140px;
 }
 
-/* ========== Status Bar ========== */
+/* Status Bar */
 .status-bar {
-    display: flex;
-    gap: var(--spacing-xl);
-    padding: var(--spacing-md) var(--spacing-lg);
-    background: var(--bg-secondary);
-    border-top: 1px solid var(--border-color);
-    font-size: var(--font-size-xs);
+    height: 28px;
+    background: #007acc;
+    line-height: 28px;
+    padding: 0 16px;
+    font-size: 11px;
+    color: #ffffff;
 }
 
-.status-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
+.status-bar span {
+    margin-right: 24px;
 }
 
-.status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-}
-
-.status-dot.ok { background: var(--accent-green); }
-.status-dot.warn { background: var(--accent-orange); }
-.status-dot.error { background: var(--accent-red); }
-.status-dot.info { background: var(--accent-blue); }
-
-/* ========== Output Panel ========== */
+/* Output Panel */
 .output-panel {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 2px;
-    margin-top: var(--spacing-lg);
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    margin-top: 16px;
 }
 
 .output-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--bg-tertiary);
-    border-bottom: 1px solid var(--border-color);
+    background: #252526;
+    padding: 6px 12px;
+    border-bottom: 1px solid #3c3c3c;
+    overflow: hidden;
 }
 
 .output-title {
-    font-size: var(--font-size-xs);
-    color: var(--text-secondary);
+    font-size: 11px;
+    color: #858585;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    float: left;
 }
 
 .output-content {
-    height: 150px;
+    height: 140px;
     overflow-y: auto;
-    padding: var(--spacing-md);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-sm);
-    line-height: 1.6;
+    padding: 12px;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
     white-space: pre-wrap;
-    word-break: break-all;
+    background: #1e1e1e;
 }
 
-.output-line { margin: 0; }
+.success { color: #4ec9b0; }
+.error { color: #f14c4c; }
+.info { color: #3794ff; }
+.warn { color: #cca700; }
 
-.output-line.success { color: var(--accent-green); }
-.output-line.error { color: var(--accent-red); }
-.output-line.info { color: var(--accent-blue); }
-.output-line.warn { color: var(--accent-orange); }
-
-/* ========== Info List ========== */
+/* Info List */
 .info-list {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 2px;
+    background: #252526;
+    border: 1px solid #3c3c3c;
 }
 
-.info-item {
-    display: flex;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-bottom: 1px solid var(--border-color);
+.info-row {
+    padding: 8px 12px;
+    border-bottom: 1px solid #3c3c3c;
+    overflow: hidden;
 }
 
-.info-item:last-child {
+.info-row:last-child {
     border-bottom: none;
 }
 
 .info-label {
-    width: 120px;
-    color: var(--text-secondary);
-    font-size: var(--font-size-sm);
+    float: left;
+    width: 100px;
+    color: #858585;
+    font-size: 12px;
 }
 
 .info-value {
-    flex: 1;
-    font-family: var(--font-mono);
-    font-size: var(--font-size-sm);
-    word-break: break-all;
+    float: left;
+    color: #cccccc;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 12px;
 }
 
-/* ========== Card ========== */
+/* Card */
 .card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 2px;
-    padding: var(--spacing-lg);
-}
-
-.card + .card {
-    margin-top: var(--spacing-md);
+    background: #252526;
+    border: 1px solid #3c3c3c;
+    padding: 16px;
+    margin-bottom: 16px;
 }
 
 .card-title {
-    font-size: var(--font-size-lg);
+    font-size: 14px;
     font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-sm);
+    color: #ffffff;
+    margin-bottom: 8px;
 }
 
 .card-text {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    line-height: 1.5;
+    font-size: 12px;
+    color: #858585;
+    line-height: 1.6;
 }
 
-/* ========== Utility ========== */
-.mt-sm { margin-top: var(--spacing-sm); }
-.mt-md { margin-top: var(--spacing-md); }
-.mt-lg { margin-top: var(--spacing-lg); }
-.mb-sm { margin-bottom: var(--spacing-sm); }
-.mb-md { margin-bottom: var(--spacing-md); }
-.text-muted { color: var(--text-secondary); }
-.text-sm { font-size: var(--font-size-sm); }
+/* Status Check */
+.status-check {
+    background: #252526;
+    border: 1px solid #3c3c3c;
+    padding: 12px;
+}
+
+.status-row {
+    margin-bottom: 8px;
+}
+
+.status-row:last-child {
+    margin-bottom: 0;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-dot.ok { background: #4ec9b0; }
+.status-dot.warn { background: #cca700; }
+.status-dot.error { background: #f14c4c; }
+
+/* Clear */
+.clear { clear: both; }
 </style>
 </head>
 <body>
 <div class="app">
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-item active" onclick="showPanel('main')" title="Main">
-            <span class="sidebar-icon">&#9654;</span>
-        </div>
-        <div class="sidebar-item" onclick="showPanel('worktree')" title="Worktrees">
-            <span class="sidebar-icon">&#9874;</span>
-        </div>
-        <div class="sidebar-item" onclick="showPanel('playwright')" title="Playwright">
-            <span class="sidebar-icon">&#9881;</span>
-        </div>
-        <div class="sidebar-item" onclick="showPanel('settings')" title="Settings">
-            <span class="sidebar-icon">&#9881;</span>
-        </div>
+        <div class="sidebar-item active" onclick="showPanel('main')" title="Start">&#9654;</div>
+        <div class="sidebar-item" onclick="showPanel('worktree')" title="Worktrees">&#9632;</div>
+        <div class="sidebar-item" onclick="showPanel('playwright')" title="Playwright">&#9881;</div>
+        <div class="sidebar-item" onclick="showPanel('settings')" title="Settings">&#9993;</div>
     </div>
 
     <!-- Main Content -->
@@ -509,29 +408,24 @@ body {
             <!-- Main Panel -->
             <div id="panel-main" class="panel active">
                 <div class="section">
-                    <div class="section-header">
-                        <span class="section-title">Start OpenCode</span>
-                    </div>
+                    <div class="section-header"><span class="section-title">Start OpenCode</span></div>
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group inline-btn">
                             <label class="form-label">Project Folder</label>
-                            <input type="text" class="form-input" id="projectPath" placeholder="Enter path or browse...">
+                            <input type="text" class="form-input" id="projectPath" placeholder="Enter path...">
                         </div>
-                        <div class="form-group compact">
-                            <label class="form-label">&nbsp;</label>
+                        <div class="form-group inline" style="padding-top:20px;">
                             <button class="btn btn-secondary" onclick="browseFolder()">Browse</button>
                         </div>
-                        <div class="form-group compact">
-                            <label class="form-label">&nbsp;</label>
+                        <div class="form-group inline" style="padding-top:20px;">
                             <button class="btn btn-primary" onclick="runOpenCode()">Start</button>
                         </div>
                     </div>
+                    <div class="clear"></div>
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <span class="section-title">Quick Actions</span>
-                    </div>
+                    <div class="section-header"><span class="section-title">Quick Actions</span></div>
                     <div class="btn-grid">
                         <button class="btn btn-secondary" onclick="openInCurrentFolder()">This Folder</button>
                         <button class="btn btn-secondary" onclick="openConfig()">Open Config</button>
@@ -543,7 +437,7 @@ body {
                 <div class="output-panel">
                     <div class="output-header">
                         <span class="output-title">Output</span>
-                        <button class="btn btn-secondary btn-icon" onclick="clearOutput()" title="Clear">&#10006;</button>
+                        <button class="btn btn-secondary btn-small" style="float:right;margin-top:-3px;" onclick="clearOutput()">Clear</button>
                     </div>
                     <div class="output-content" id="output"></div>
                 </div>
@@ -552,15 +446,13 @@ body {
             <!-- Worktree Panel -->
             <div id="panel-worktree" class="panel">
                 <div class="section">
-                    <div class="section-header">
-                        <span class="section-title">Create Worktree</span>
-                    </div>
+                    <div class="section-header"><span class="section-title">Create Worktree</span></div>
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group inline">
                             <label class="form-label">Name</label>
                             <input type="text" class="form-input" id="wtName" placeholder="feature-auth">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group inline">
                             <label class="form-label">Agent</label>
                             <select class="form-select" id="wtAgent">
                                 <option value="">None</option>
@@ -569,20 +461,17 @@ body {
                                 <option value="oracle">oracle</option>
                                 <option value="librarian">librarian</option>
                                 <option value="explore">explore</option>
-                                <option value="frontend-ui-ux">frontend-ui-ux</option>
                             </select>
                         </div>
-                        <div class="form-group compact">
-                            <label class="form-label">&nbsp;</label>
+                        <div class="form-group inline" style="padding-top:20px;">
                             <button class="btn btn-success" onclick="createWorktree()">Create</button>
                         </div>
                     </div>
+                    <div class="clear"></div>
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <span class="section-title">Actions</span>
-                    </div>
+                    <div class="section-header"><span class="section-title">Actions</span></div>
                     <div class="btn-grid">
                         <button class="btn btn-primary" onclick="listWorktrees()">List All</button>
                         <button class="btn btn-primary" onclick="showStatus()">Status</button>
@@ -591,24 +480,21 @@ body {
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <span class="section-title">Merge / Delete</span>
-                    </div>
+                    <div class="section-header"><span class="section-title">Merge / Delete</span></div>
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group inline">
                             <label class="form-label">Worktree Name</label>
                             <input type="text" class="form-input" id="wtMergeName" placeholder="feature-auth">
                         </div>
-                        <div class="form-group compact">
-                            <label class="form-label">&nbsp;</label>
+                        <div class="form-group inline" style="padding-top:20px;">
                             <button class="btn btn-secondary" onclick="mergeWorktree()">Merge</button>
                         </div>
-                        <div class="form-group compact">
-                            <label class="form-label">&nbsp;</label>
+                        <div class="form-group inline" style="padding-top:20px;">
                             <button class="btn btn-danger" onclick="deleteWorktree()">Delete</button>
                         </div>
                     </div>
-                    <div class="btn-group mt-md">
+                    <div class="clear"></div>
+                    <div style="margin-top:12px;">
                         <button class="btn btn-secondary" onclick="cleanupMerged()">Cleanup Merged</button>
                         <button class="btn btn-danger" onclick="cleanupAll()">Cleanup All</button>
                     </div>
@@ -617,7 +503,7 @@ body {
                 <div class="output-panel">
                     <div class="output-header">
                         <span class="output-title">Output</span>
-                        <button class="btn btn-secondary btn-icon" onclick="clearOutput()" title="Clear">&#10006;</button>
+                        <button class="btn btn-secondary btn-small" style="float:right;margin-top:-3px;" onclick="clearOutput()">Clear</button>
                     </div>
                     <div class="output-content" id="output-wt"></div>
                 </div>
@@ -626,34 +512,27 @@ body {
             <!-- Playwright Panel -->
             <div id="panel-playwright" class="panel">
                 <div class="section">
-                    <div class="section-header">
-                        <span class="section-title">Browser Automation</span>
-                    </div>
+                    <div class="section-header"><span class="section-title">Browser Automation</span></div>
                     <div class="card">
                         <div class="card-title">Playwright with Chromium</div>
-                        <div class="card-text">
-                            Install Chromium browser for automated testing and browser tasks.<br>
-                            Download size: ~135MB
-                        </div>
+                        <div class="card-text">Install Chromium browser for automated testing.<br>Download size: ~135MB</div>
                     </div>
-                    <div class="btn-group mt-lg">
+                    <div style="margin-top:16px;">
                         <button class="btn btn-success" onclick="installPlaywright()">Install Chromium</button>
                         <button class="btn btn-secondary" onclick="checkPlaywright()">Check Status</button>
                     </div>
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <span class="section-title">Status</span>
-                    </div>
-                    <div class="status-bar" style="flex-direction: column; align-items: flex-start; gap: 12px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 2px;">
-                        <div class="status-item">
+                    <div class="section-header"><span class="section-title">Status</span></div>
+                    <div class="status-check">
+                        <div class="status-row">
                             <span class="status-dot" id="pwNpmStatus"></span>
-                            <span id="pwNpmText">Playwright npm: Checking...</span>
+                            <span id="pwNpmText">Checking...</span>
                         </div>
-                        <div class="status-item">
+                        <div class="status-row">
                             <span class="status-dot" id="pwBrowserStatus"></span>
-                            <span id="pwBrowserText">Chromium: Checking...</span>
+                            <span id="pwBrowserText">Checking...</span>
                         </div>
                     </div>
                 </div>
@@ -661,7 +540,7 @@ body {
                 <div class="output-panel">
                     <div class="output-header">
                         <span class="output-title">Output</span>
-                        <button class="btn btn-secondary btn-icon" onclick="clearOutput()" title="Clear">&#10006;</button>
+                        <button class="btn btn-secondary btn-small" style="float:right;margin-top:-3px;" onclick="clearOutput()">Clear</button>
                     </div>
                     <div class="output-content" id="output-pw"></div>
                 </div>
@@ -670,27 +549,25 @@ body {
             <!-- Settings Panel -->
             <div id="panel-settings" class="panel">
                 <div class="section">
-                    <div class="section-header">
-                        <span class="section-title">Paths</span>
-                    </div>
+                    <div class="section-header"><span class="section-title">Paths</span></div>
                     <div class="info-list">
-                        <div class="info-item">
+                        <div class="info-row">
                             <span class="info-label">Root</span>
                             <span class="info-value" id="pathRoot"></span>
                         </div>
-                        <div class="info-item">
+                        <div class="info-row">
                             <span class="info-label">Node.js</span>
                             <span class="info-value" id="pathNode"></span>
                         </div>
-                        <div class="info-item">
+                        <div class="info-row">
                             <span class="info-label">App</span>
                             <span class="info-value" id="pathApp"></span>
                         </div>
-                        <div class="info-item">
+                        <div class="info-row">
                             <span class="info-label">Config</span>
                             <span class="info-value" id="pathConfig"></span>
                         </div>
-                        <div class="info-item">
+                        <div class="info-row">
                             <span class="info-label">Browsers</span>
                             <span class="info-value" id="pathBrowsers"></span>
                         </div>
@@ -698,9 +575,7 @@ body {
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <span class="section-title">About</span>
-                    </div>
+                    <div class="section-header"><span class="section-title">About</span></div>
                     <div class="card">
                         <div class="card-title">OpenOhMyCode Portable</div>
                         <div class="card-text">
@@ -715,19 +590,13 @@ body {
 
         <!-- Status Bar -->
         <div class="status-bar">
-            <div class="status-item">
-                <span class="status-dot info"></span>
-                <span>Ready</span>
-            </div>
-            <div class="status-item">
-                <span>OpenOhMyCode Portable v2.0</span>
-            </div>
+            <span>Ready</span>
+            <span>OpenOhMyCode Portable v2.0</span>
         </div>
     </div>
 </div>
 
 <script language="VBScript">
-' VBScript for file system operations
 Dim fso, shell
 Set fso = CreateObject("Scripting.FileSystemObject")
 Set shell = CreateObject("WScript.Shell")
@@ -748,18 +617,15 @@ Function RunCommand(cmd)
         RunCommand = "Error: " & Err.Description
         Exit Function
     End If
-    
     output = ""
     Do While exec.Status = 0 Or Not exec.StdOut.AtEndOfStream
         If Not exec.StdOut.AtEndOfStream Then
             output = output & exec.StdOut.ReadLine & vbCrLf
         End If
     Loop
-    
     Do While Not exec.StdErr.AtEndOfStream
         output = output & exec.StdErr.ReadLine & vbCrLf
     Loop
-    
     RunCommand = output
 End Function
 
@@ -793,7 +659,6 @@ function init() {
     if (portableRoot.charAt(portableRoot.length - 1) == '\\') {
         portableRoot = portableRoot.substring(0, portableRoot.length - 1);
     }
-    
     nodeHome = portableRoot + '\\nodejs';
     appHome = portableRoot + '\\app';
     configDir = portableRoot + '\\config';
@@ -811,7 +676,7 @@ function init() {
 function log(msg, type) {
     var output = document.getElementById(currentOutput);
     var line = document.createElement('div');
-    line.className = 'output-line' + (type ? ' ' + type : '');
+    if (type) line.className = type;
     line.innerText = msg;
     output.appendChild(line);
     output.scrollTop = output.scrollHeight;
@@ -827,169 +692,118 @@ function logError(msg) { log('[ERROR] ' + msg, 'error'); }
 function logWarn(msg) { log('[WARN] ' + msg, 'warn'); }
 
 function showPanel(name) {
-    var panels = document.querySelectorAll('.panel');
-    var items = document.querySelectorAll('.sidebar-item');
+    var panels = ['main', 'worktree', 'playwright', 'settings'];
     var titles = { main: 'Start', worktree: 'Worktrees', playwright: 'Playwright', settings: 'Settings' };
     var outputs = { main: 'output', worktree: 'output-wt', playwright: 'output-pw', settings: 'output' };
     
     for (var i = 0; i < panels.length; i++) {
-        panels[i].className = 'panel';
-    }
-    for (var i = 0; i < items.length; i++) {
-        items[i].className = 'sidebar-item';
+        document.getElementById('panel-' + panels[i]).className = 'panel';
+        document.getElementById('panel-' + panels[i]).previousSibling.className = 'sidebar-item';
     }
     
     document.getElementById('panel-' + name).className = 'panel active';
-    event.currentTarget.className = 'sidebar-item active';
+    event.srcElement.className = 'sidebar-item active';
     document.getElementById('headerTitle').innerText = titles[name];
     currentOutput = outputs[name];
 }
 
 function browseFolder() {
     var folder = BrowseFolder();
-    if (folder) {
-        document.getElementById('projectPath').value = folder;
-    }
+    if (folder) document.getElementById('projectPath').value = folder;
 }
 
 function runOpenCode() {
     var path = document.getElementById('projectPath').value;
-    if (!path) {
-        logError('Please enter a project folder path');
-        return;
-    }
+    if (!path) { logError('Enter project path'); return; }
+    if (!PathExists(path)) { logError('Folder not found'); return; }
     
-    if (!PathExists(path)) {
-        logError('Folder not found: ' + path);
-        return;
-    }
-    
-    logInfo('Starting OpenCode in: ' + path);
-    
+    logInfo('Starting OpenCode...');
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\opencode-ai\\bin\\opencode"';
     shell.CurrentDirectory = path;
     shell.Run('cmd /k "' + cmd + '"', 1, false);
-    
-    logSuccess('OpenCode started in new window');
+    logSuccess('Started');
 }
 
 function openInCurrentFolder() {
     document.getElementById('projectPath').value = portableRoot;
-    logInfo('Set path to: ' + portableRoot);
 }
 
 function openConfig() {
-    logInfo('Opening config folder...');
     shell.Run('explorer "' + configDir + '"', 1, false);
-    logSuccess('Config folder opened');
 }
 
 function checkNode() {
-    logInfo('Checking Node.js...');
+    logInfo('Checking...');
     if (PathExists(nodeHome + '\\node.exe')) {
-        logSuccess('Node.js found');
-        var output = RunCommand('"' + nodeHome + '\\node.exe" --version');
-        log('Version: ' + output.replace(/\r?\n/g, ''));
+        logSuccess('Found: ' + nodeHome + '\\node.exe');
     } else {
-        logError('Node.js not found');
+        logError('Not found');
     }
 }
 
 function checkOpenCode() {
-    logInfo('Checking OpenCode...');
-    var ocPath = appHome + '\\node_modules\\opencode-ai\\bin\\opencode';
-    if (PathExists(ocPath)) {
-        logSuccess('OpenCode found');
+    logInfo('Checking...');
+    if (PathExists(appHome + '\\node_modules\\opencode-ai\\bin\\opencode')) {
+        logSuccess('Found');
     } else {
-        logError('OpenCode not found');
+        logError('Not found');
     }
 }
 
 function createWorktree() {
     var name = document.getElementById('wtName').value;
     var agent = document.getElementById('wtAgent').value;
-    
-    if (!name) {
-        logError('Please enter a worktree name');
-        return;
-    }
-    
-    logInfo('Creating worktree: ' + name);
+    if (!name) { logError('Enter name'); return; }
     
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree create ' + name;
     if (agent) cmd += ' --agent ' + agent;
-    
-    var output = RunCommand(cmd);
-    log(output);
+    log(RunCommand(cmd));
 }
 
 function listWorktrees() {
-    logInfo('Listing worktrees...');
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree list';
-    var output = RunCommand(cmd);
-    log(output);
+    log(RunCommand(cmd));
 }
 
 function showStatus() {
-    logInfo('Getting status...');
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status';
-    var output = RunCommand(cmd);
-    log(output);
+    log(RunCommand(cmd));
 }
 
 function checkConflicts() {
-    logInfo('Checking conflicts...');
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status --conflicts';
-    var output = RunCommand(cmd);
-    log(output);
+    log(RunCommand(cmd));
 }
 
 function mergeWorktree() {
     var name = document.getElementById('wtMergeName').value;
-    if (!name) {
-        logError('Enter worktree name');
-        return;
-    }
-    
-    logInfo('Merging: ' + name);
+    if (!name) { logError('Enter name'); return; }
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree merge ' + name + ' --yes';
-    var output = RunCommand(cmd);
-    log(output);
+    log(RunCommand(cmd));
 }
 
 function deleteWorktree() {
     var name = document.getElementById('wtMergeName').value;
-    if (!name) {
-        logError('Enter worktree name');
-        return;
-    }
-    
-    logInfo('Deleting: ' + name);
+    if (!name) { logError('Enter name'); return; }
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup ' + name + ' --force';
-    var output = RunCommand(cmd);
-    log(output);
+    log(RunCommand(cmd));
 }
 
 function cleanupMerged() {
-    logInfo('Cleaning merged worktrees...');
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --merged --force';
-    var output = RunCommand(cmd);
-    log(output);
+    log(RunCommand(cmd));
 }
 
 function cleanupAll() {
-    logWarn('Cleaning ALL worktrees...');
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --all --force';
-    var output = RunCommand(cmd);
-    log(output);
+    log(RunCommand(cmd));
 }
 
 function checkPlaywrightStatus() {
     var npmStatus = document.getElementById('pwNpmStatus');
     var npmText = document.getElementById('pwNpmText');
-    var pwPath = appHome + '\\node_modules\\playwright';
     
-    if (PathExists(pwPath)) {
+    if (PathExists(appHome + '\\node_modules\\playwright')) {
         npmStatus.className = 'status-dot ok';
         npmText.innerText = 'Playwright npm: Installed';
     } else {
@@ -1010,35 +824,19 @@ function checkPlaywrightStatus() {
 }
 
 function installPlaywright() {
-    logInfo('Installing Playwright with Chromium...');
-    logInfo('Download size: ~135MB');
-    
+    logInfo('Installing...');
     var cmd = 'cmd /c "set PLAYWRIGHT_BROWSERS_PATH=' + browsersPath + ' && "' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\playwright\\cli.js" install chromium"';
-    
-    logInfo('Running install...');
-    var output = RunCommand(cmd);
-    log(output);
-    
+    log(RunCommand(cmd));
     checkPlaywrightStatus();
 }
 
 function checkPlaywright() {
-    logInfo('Checking Playwright...');
-    
-    var pwPath = appHome + '\\node_modules\\playwright';
-    if (PathExists(pwPath)) {
-        logSuccess('Playwright npm: Found');
-    } else {
-        logWarn('Playwright npm: Not found');
-    }
-    
-    if (PathExists(browsersPath)) {
-        logSuccess('Chromium: Found');
-    } else {
-        logWarn('Chromium: Not found');
-    }
-    
+    logInfo('Checking...');
     checkPlaywrightStatus();
+    if (PathExists(appHome + '\\node_modules\\playwright')) logSuccess('npm: OK');
+    else logWarn('npm: Missing');
+    if (PathExists(browsersPath)) logSuccess('Chromium: OK');
+    else logWarn('Chromium: Missing');
 }
 
 window.onload = init;
