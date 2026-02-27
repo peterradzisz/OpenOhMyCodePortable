@@ -523,6 +523,8 @@ var appHome = '';
 var configDir = '';
 var browsersPath = '';
 var currentOutput = 'output';
+var jshell = new ActiveXObject('WScript.Shell');
+var jfso = new ActiveXObject('Scripting.FileSystemObject');
 
 function init() {
     portableRoot = GetPortableRoot();
@@ -556,8 +558,11 @@ function clearOutput() {
 }
 
 function logInfo(msg) { log('[INFO] ' + msg, 'info'); }
+
 function logSuccess(msg) { log('[OK] ' + msg, 'success'); }
+
 function logError(msg) { log('[ERROR] ' + msg, 'error'); }
+
 function logWarn(msg) { log('[WARN] ' + msg, 'warn'); }
 
 function showPanel(name, element) {
@@ -596,13 +601,14 @@ function runOpenCode() {
     if (!PathExists(path)) { logError('Folder not found'); return; }
     logInfo('Starting OpenCode...');
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\opencode-ai\\bin\\opencode"';
-    shell.CurrentDirectory = path;
-    shell.Run('cmd /k "' + cmd + '"', 1, false);
+    jshell.CurrentDirectory = path;
+    jshell.Run('cmd /k "' + cmd + '"', 1, false);
     logSuccess('Started');
 }
 
 function openInCurrentFolder() { document.getElementById('projectPath').value = portableRoot; }
-function openConfig() { shell.Run('explorer "' + configDir + '"', 1, false); }
+
+function openConfig() { jshell.Run('explorer "' + configDir + '"', 1, false); }
 
 function checkNode() {
     logInfo('Checking...');
