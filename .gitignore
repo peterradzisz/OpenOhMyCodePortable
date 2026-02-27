@@ -21,3 +21,5 @@ app/node_modules/
 # Keep package files for reference
 !app/package.json
 !app/package-lock.json
+omo-dev/
+.sisyphus/

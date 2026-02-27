@@ -69,3 +69,23 @@ Double-click: Worktree-Menu.bat
 ```
 F:\OpenOhMyCodePortable\.omo\worktrees.json
 ```
+
+---
+
+## Playwright (Browser Automation)
+
+Install Chromium for browser automation tasks:
+
+| File | What it does |
+|------|--------------|
+| `Install-Playwright.bat` | Download Chromium (~135MB) |
+| `Check-Playwright.bat` | Check installation status |
+
+**Usage:**
+1. Run `Install-Playwright.bat` once to download Chromium
+2. Playwright is auto-configured to use the bundled browser
+3. Browser stored in: `F:\OpenOhMyCodePortable\browsers\`
+
+```
+F:\OpenOhMyCodePortable\.omo\worktrees.json
+```

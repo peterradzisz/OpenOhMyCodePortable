@@ -22,6 +22,8 @@ set "NPM_CONFIG_PREFIX=%APP_HOME%"
 REM Set OpenCode config directory (portable)
 set "OPENCODE_CONFIG_DIR=%PORTABLE_ROOT%\config"
 
+REM Set Playwright browsers path (for bundled Chromium)
+set "PLAYWRIGHT_BROWSERS_PATH=%PORTABLE_ROOT%\browsers"
 echo.
 echo ========================================
 echo   OpenOhMyCode Portable
@@ -53,21 +55,22 @@ if not exist "%APP_HOME%\node_modules\opencode-ai\bin\opencode" (
     exit /b 1
 )
 
-:menu
 echo.
 echo Select an option:
 echo.
 echo   1. Run OpenCode (enter project path)
 echo   2. Run OpenCode in current folder
 echo   3. Open Worktree Menu
-echo   4. Exit
+echo   4. Install Playwright (Chromium)
+echo   5. Exit
 echo.
-set /p CHOICE="Enter choice (1-4): "
+set /p CHOICE="Enter choice (1-5): "
 
 if "%CHOICE%"=="1" goto manual_path
 if "%CHOICE%"=="2" goto current_folder
 if "%CHOICE%"=="3" goto worktree_menu
-if "%CHOICE%"=="4" goto end
+if "%CHOICE%"=="4" goto install_playwright
+if "%CHOICE%"=="5" goto end
 
 echo Invalid choice. Please try again.
 goto menu
@@ -128,6 +131,10 @@ if %EXIT_CODE% neq 0 (
 
 echo Press any key to return to menu...
 pause >nul
+goto menu
+
+:install_playwright
+call "%PORTABLE_ROOT%\Install-Playwright.bat"
 goto menu
 
 :end
