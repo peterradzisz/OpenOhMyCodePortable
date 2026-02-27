@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OpenOhMyCode Portable</title>
+<HTA:APPLICATION
+    ID="OpenOhMyCode"
+    APPLICATIONNAME="OpenOhMyCode Portable"
+    BORDER="thin"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    CONTEXTMENU="yes"
+    ICON=""
+    INNERBORDER="yes"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    NAVIGABLE="no"
+    SCROLL="no"
+    SCROLLFLAT="no"
+    SELECTION="no"
+    SHOWINTASKBAR="yes"
+    SINGLEINSTANCE="yes"
+    SYSMENU="yes"
+    VERSION="1.0"
+    WINDOWSTATE="normal"
+/>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 14px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #eee;
+    min-height: 100vh;
+    padding: 20px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 5px;
+    color: #00d4ff;
+    text-shadow: 0 0 10px rgba(0,212,255,0.5);
+}
+.subtitle {
+    text-align: center;
+    color: #888;
+    margin-bottom: 25px;
+    font-size: 13px;
+}
+.tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+.tab {
+    padding: 10px 20px;
+    background: #2a2a4a;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+.tab:hover { background: #3a3a5a; color: #fff; }
+.tab.active { background: #0f3460; color: #00d4ff; }
+.content {
+    background: rgba(15, 52, 96, 0.6);
+    border-radius: 0 10px 10px 10px;
+    padding: 20px;
+    min-height: 400px;
+}
+.panel { display: none; }
+.panel.active { display: block; }
+.section {
+    margin-bottom: 20px;
+}
+.section-title {
+    font-size: 16px;
+    color: #00d4ff;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #333;
+}
+.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+.btn {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-primary {
+    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+    color: #000;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,212,255,0.4);
+}
+.btn-secondary {
+    background: #2a2a4a;
+    color: #ddd;
+    border: 1px solid #444;
+}
+.btn-secondary:hover {
+    background: #3a3a5a;
+    border-color: #00d4ff;
+}
+.btn-success {
+    background: linear-gradient(135deg, #00c853 0%, #009624 100%);
+    color: #fff;
+}
+.btn-success:hover {
+    box-shadow: 0 5px 20px rgba(0,200,83,0.4);
+}
+.btn-warning {
+    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+    color: #000;
+}
+.btn-danger {
+    background: linear-gradient(135deg, #ff5252 0%, #d32f2f 100%);
+    color: #fff;
+}
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.input-group {
+    margin-bottom: 15px;
+}
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #aaa;
+    font-size: 12px;
+}
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 14px;
+}
+.input-group input:focus, .input-group select:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+.output-container {
+    background: #0a0a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #1a1a2e;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid #333;
+}
+.output-header span {
+    color: #888;
+    font-size: 12px;
+}
+.output {
+    height: 180px;
+    overflow-y: auto;
+    padding: 12px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+.output .success { color: #00c853; }
+.output .error { color: #ff5252; }
+.output .info { color: #00d4ff; }
+.output .warn { color: #ff9800; }
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background: #1a1a2e;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 12px;
+}
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.status-dot.ok { background: #00c853; }
+.status-dot.warn { background: #ff9800; }
+.status-dot.error { background: #ff5252; }
+.icon { font-size: 16px; }
+.flex-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+.flex-row .input-group { flex: 1; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>OpenOhMyCode Portable</h1>
+    <p class="subtitle">AI-powered coding assistant with parallel agent support</p>
+
+    <div class="tabs">
+        <button class="tab active" onclick="showPanel('main')">Main</button>
+        <button class="tab" onclick="showPanel('worktree')">Worktrees</button>
+        <button class="tab" onclick="showPanel('playwright')">Playwright</button>
+        <button class="tab" onclick="showPanel('settings')">Settings</button>
+    </div>
+
+    <div class="content">
+        <!-- Main Panel -->
+        <div id="panel-main" class="panel active">
+            <div class="section">
+                <div class="section-title">Start OpenCode</div>
+                <div class="input-group">
+                    <label>Project Folder Path</label>
+                    <div class="flex-row">
+                        <input type="text" id="projectPath" placeholder="C:\Projects\my-project">
+                        <button class="btn btn-secondary" onclick="browseFolder()">Browse</button>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="runOpenCode()">
+                    <span class="icon">▶</span> Start OpenCode
+                </button>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Quick Actions</div>
+                <div class="btn-grid">
+                    <button class="btn btn-secondary" onclick="openInCurrentFolder()">
+                        <span class="icon">📁</span> Open in This Folder
+                    </button>
+                    <button class="btn btn-secondary" onclick="openConfig()">
+                        <span class="icon">⚙</span> Open Config Folder
+                    </button>
+                    <button class="btn btn-secondary" onclick="checkNode()">
+                        <span class="icon">🔍</span> Check Node.js
+                    </button>
+                    <button class="btn btn-secondary" onclick="checkOpenCode()">
+                        <span class="icon">🔍</span> Check OpenCode
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Worktree Panel -->
+        <div id="panel-worktree" class="panel">
+            <div class="section">
+                <div class="section-title">Create Worktree</div>
+                <div class="flex-row">
+                    <div class="input-group">
+                        <label>Worktree Name</label>
+                        <input type="text" id="wtName" placeholder="feature-auth">
+                    </div>
+                    <div class="input-group">
+                        <label>Agent</label>
+                        <select id="wtAgent">
+                            <option value="">No Agent</option>
+                            <option value="sisyphus">sisyphus (orchestrator)</option>
+                            <option value="hephaestus">hephaestus (deep worker)</option>
+                            <option value="oracle">oracle (debugging)</option>
+                            <option value="librarian">librarian (docs)</option>
+                            <option value="explore">explore (code search)</option>
+                            <option value="frontend-ui-ux">frontend-ui-ux</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success" onclick="createWorktree()">Create</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Worktree Actions</div>
+                <div class="btn-grid">
+                    <button class="btn btn-primary" onclick="listWorktrees()">
+                        <span class="icon">📋</span> List All Worktrees
+                    </button>
+                    <button class="btn btn-primary" onclick="showStatus()">
+                        <span class="icon">📊</span> Status Dashboard
+                    </button>
+                    <button class="btn btn-warning" onclick="checkConflicts()">
+                        <span class="icon">⚠</span> Check Conflicts
+                    </button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Merge / Cleanup</div>
+                <div class="flex-row">
+                    <div class="input-group">
+                        <label>Worktree Name</label>
+                        <input type="text" id="wtMergeName" placeholder="feature-auth">
+                    </div>
+                    <button class="btn btn-warning" onclick="mergeWorktree()">Merge</button>
+                    <button class="btn btn-danger" onclick="deleteWorktree()">Delete</button>
+                </div>
+                <br>
+                <div class="btn-grid">
+                    <button class="btn btn-secondary" onclick="cleanupMerged()">
+                        <span class="icon">🧹</span> Cleanup Merged
+                    </button>
+                    <button class="btn btn-danger" onclick="cleanupAll()">
+                        <span class="icon">🗑</span> Cleanup All
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Playwright Panel -->
+        <div id="panel-playwright" class="panel">
+            <div class="section">
+                <div class="section-title">Playwright Browser Automation</div>
+                <p style="color: #888; margin-bottom: 15px;">
+                    Install Chromium browser for automated testing and browser tasks. Download size: ~135MB
+                </p>
+                <div class="btn-grid">
+                    <button class="btn btn-success" onclick="installPlaywright()">
+                        <span class="icon">⬇</span> Install Chromium
+                    </button>
+                    <button class="btn btn-primary" onclick="checkPlaywright()">
+                        <span class="icon">🔍</span> Check Installation
+                    </button>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">Status</div>
+                <div class="status-bar">
+                    <div class="status-item">
+                        <span class="status-dot" id="pwNpmStatus"></span>
+                        <span id="pwNpmText">Playwright npm: Checking...</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-dot" id="pwBrowserStatus"></span>
+                        <span id="pwBrowserText">Chromium: Checking...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div id="panel-settings" class="panel">
+            <div class="section">
+                <div class="section-title">Paths</div>
+                <div class="status-bar" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                    <div><strong>Portable Root:</strong> <span id="pathRoot"></span></div>
+                    <div><strong>Node.js:</strong> <span id="pathNode"></span></div>
+                    <div><strong>App:</strong> <span id="pathApp"></span></div>
+                    <div><strong>Config:</strong> <span id="pathConfig"></span></div>
+                    <div><strong>Browsers:</strong> <span id="pathBrowsers"></span></div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">About</div>
+                <div class="status-bar" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                    <div><strong>OpenOhMyCode Portable</strong></div>
+                    <div>Version: 1.0.0</div>
+                    <div>Portable OpenCode + oh-my-opencode bundle</div>
+                    <div style="color: #888; margin-top: 5px;">
+                        Run multiple AI agents in parallel with git worktree isolation
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Output Window -->
+    <div class="output-container">
+        <div class="output-header">
+            <span>Output Log</span>
+            <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="clearOutput()">Clear</button>
+        </div>
+        <div class="output" id="output"></div>
+    </div>
+</div>
+
+<script language="VBScript">
+' VBScript for file system operations
+Dim fso, shell
+Set fso = CreateObject("Scripting.FileSystemObject")
+Set shell = CreateObject("WScript.Shell")
+
+' Get portable root path
+Function GetPortableRoot()
+    Dim path
+    path = Replace(location.pathname, "/", "\")
+    path = Replace(path, "OpenOhMyCode.hta", "")
+    If Left(path, 1) = "\" Then path = Mid(path, 2)
+    GetPortableRoot = path
+End Function
+
+' Run command and return output
+Function RunCommand(cmd)
+    Dim exec, output
+    On Error Resume Next
+    Set exec = shell.Exec(cmd)
+    If Err.Number <> 0 Then
+        RunCommand = "Error: " & Err.Description
+        Exit Function
+    End If
+    
+    output = ""
+    Do While exec.Status = 0 Or Not exec.StdOut.AtEndOfStream
+        If Not exec.StdOut.AtEndOfStream Then
+            output = output & exec.StdOut.ReadLine & vbCrLf
+        End If
+    Loop
+    
+    Do While Not exec.StdErr.AtEndOfStream
+        output = output & exec.StdErr.ReadLine & vbCrLf
+    Loop
+    
+    RunCommand = output
+End Function
+
+' Run command async (fire and forget)
+Sub RunCommandAsync(cmd)
+    shell.Run "cmd /c " & cmd, 0, False
+End Sub
+
+' Check if file/folder exists
+Function PathExists(path)
+    PathExists = fso.FolderExists(path) Or fso.FileExists(path)
+End Function
+
+' Browse for folder
+Function BrowseFolder()
+    Dim folderDialog, result
+    On Error Resume Next
+    Set folderDialog = CreateObject("Shell.Application")
+    Set result = folderDialog.BrowseForFolder(0, "Select Project Folder", 0)
+    If Err.Number = 0 And Not result Is Nothing Then
+        BrowseFolder = result.Self.Path
+    Else
+        BrowseFolder = ""
+    End If
+End Function
+</script>
+
+<script language="JScript">
+// Global variables
+var portableRoot = '';
+var nodeHome = '';
+var appHome = '';
+var configDir = '';
+var browsersPath = '';
+
+// Initialize
+function init() {
+    portableRoot = GetPortableRoot();
+    if (portableRoot.charAt(portableRoot.length - 1) == '\\') {
+        portableRoot = portableRoot.substring(0, portableRoot.length - 1);
+    }
+    
+    nodeHome = portableRoot + '\\nodejs';
+    appHome = portableRoot + '\\app';
+    configDir = portableRoot + '\\config';
+    browsersPath = portableRoot + '\\browsers';
+    
+    // Update settings display
+    document.getElementById('pathRoot').innerText = portableRoot;
+    document.getElementById('pathNode').innerText = nodeHome;
+    document.getElementById('pathApp').innerText = appHome;
+    document.getElementById('pathConfig').innerText = configDir;
+    document.getElementById('pathBrowsers').innerText = browsersPath;
+    
+    // Check Playwright status
+    checkPlaywrightStatus();
+}
+
+// Output functions
+function log(msg, type) {
+    var output = document.getElementById('output');
+    var line = document.createElement('div');
+    if (type) line.className = type;
+    line.innerText = msg;
+    output.appendChild(line);
+    output.scrollTop = output.scrollHeight;
+}
+
+function clearOutput() {
+    document.getElementById('output').innerHTML = '';
+}
+
+function logInfo(msg) { log('[INFO] ' + msg, 'info'); }
+function logSuccess(msg) { log('[OK] ' + msg, 'success'); }
+function logError(msg) { log('[ERROR] ' + msg, 'error'); }
+function logWarn(msg) { log('[WARN] ' + msg, 'warn'); }
+
+// Panel switching
+function showPanel(name) {
+    var panels = document.querySelectorAll('.panel');
+    var tabs = document.querySelectorAll('.tab');
+    
+    for (var i = 0; i < panels.length; i++) {
+        panels[i].className = 'panel';
+    }
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].className = 'tab';
+    }
+    
+    document.getElementById('panel-' + name).className = 'panel active';
+    event.target.className = 'tab active';
+}
+
+// Main functions
+function browseFolder() {
+    var folder = BrowseFolder();
+    if (folder) {
+        document.getElementById('projectPath').value = folder;
+    }
+}
+
+function runOpenCode() {
+    var path = document.getElementById('projectPath').value;
+    if (!path) {
+        logError('Please enter a project folder path');
+        return;
+    }
+    
+    if (!PathExists(path)) {
+        logError('Folder not found: ' + path);
+        return;
+    }
+    
+    logInfo('Starting OpenCode in: ' + path);
+    logInfo('This will open in a new window...');
+    
+    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\opencode-ai\\bin\\opencode"';
+    shell.CurrentDirectory = path;
+    shell.Run('cmd /k "' + cmd + '"', 1, false);
+    
+    logSuccess('OpenCode started!');
+}
+
+function openInCurrentFolder() {
+    document.getElementById('projectPath').value = portableRoot;
+    logInfo('Set path to portable folder: ' + portableRoot);
+}
+
+function openConfig() {
+    logInfo('Opening config folder...');
+    shell.Run('explorer "' + configDir + '"', 1, false);
+    logSuccess('Config folder opened');
+}
+
+function checkNode() {
+    logInfo('Checking Node.js...');
+    if (PathExists(nodeHome + '\\node.exe')) {
+        logSuccess('Node.js found: ' + nodeHome + '\\node.exe');
+        var output = RunCommand('"' + nodeHome + '\\node.exe" --version');
+        log('Version: ' + output);
+    } else {
+        logError('Node.js not found at: ' + nodeHome + '\\node.exe');
+    }
+}
+
+function checkOpenCode() {
+    logInfo('Checking OpenCode...');
+    var ocPath = appHome + '\\node_modules\\opencode-ai\\bin\\opencode';
+    if (PathExists(ocPath)) {
+        logSuccess('OpenCode found: ' + ocPath);
+    } else {
+        logError('OpenCode not found');
+    }
+}
+
+// Worktree functions
+function createWorktree() {
+    var name = document.getElementById('wtName').value;
+    var agent = document.getElementById('wtAgent').value;
+    
+    if (!name) {
+        logError('Please enter a worktree name');
+        return;
+    }
+    
+    logInfo('Creating worktree: ' + name);
+    
+    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree create ' + name;
+    if (agent) cmd += ' --agent ' + agent;
+    
+    var output = RunCommand(cmd);
+    log(output);
+}
+
+function listWorktrees() {
+    logInfo('Listing worktrees...');
+    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree list';
+    var output = RunCommand(cmd);
+    log(output);
+}
+
+function showStatus() {
+    logInfo('Getting worktree status...');
+    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status';
+    var output = RunCommand(cmd);
+    log(output);
+}
+
+function checkConflicts() {
+    logInfo('Checking for conflicts...');
+    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status --conflicts';
+    var output = RunCommand(cmd);
+    log(output);
+}
+
+function mergeWorktree() {
+    var name = document.getElementById('wtMergeName').value;
+    if (!name) {
+        logError('Please enter a worktree name to merge');
+        return;
+    }
+    
+    logInfo('Merging worktree: ' + name);
+    logWarn('This will merge the branch and remove the worktree');
+    
+    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree merge ' + name + ' --yes';
+    var output = RunCommand(cmd);
+    log(output);
+}
+
+function deleteWorktree() {
+    var name = document.getElementById('wtMergeName').value;
+    if (!name) {
+        logError('Please enter a worktree name to delete');
+        return;
+    }
+    
+    logInfo('Deleting worktree: ' + name);
+    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup ' + name + ' --force';
+    var output = RunCommand(cmd);
+    log(output);
+}
+
+function cleanupMerged() {
+    logInfo('Cleaning up merged worktrees...');
+    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --merged --force';
+    var output = RunCommand(cmd);
+    log(output);
+}
+
+function cleanupAll() {
+    logWarn('Cleaning up ALL worktrees...');
+    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --all --force';
+    var output = RunCommand(cmd);
+    log(output);
+}
+
+// Playwright functions
+function checkPlaywrightStatus() {
+    // Check npm package
+    var npmStatus = document.getElementById('pwNpmStatus');
+    var npmText = document.getElementById('pwNpmText');
+    var pwPath = appHome + '\\node_modules\\playwright';
+    
+    if (PathExists(pwPath)) {
+        npmStatus.className = 'status-dot ok';
+        npmText.innerText = 'Playwright npm: Installed';
+    } else {
+        npmStatus.className = 'status-dot warn';
+        npmText.innerText = 'Playwright npm: Not installed';
+    }
+    
+    // Check browser
+    var browserStatus = document.getElementById('pwBrowserStatus');
+    var browserText = document.getElementById('pwBrowserText');
+    
+    if (PathExists(browsersPath)) {
+        browserStatus.className = 'status-dot ok';
+        browserText.innerText = 'Chromium: Installed';
+    } else {
+        browserStatus.className = 'status-dot warn';
+        browserText.innerText = 'Chromium: Not installed';
+    }
+}
+
+function installPlaywright() {
+    logInfo('Installing Playwright with Chromium...');
+    logInfo('This may take a few minutes (~135MB download)');
+    
+    // Set environment and run install
+    var cmd = 'cmd /c "set PLAYWRIGHT_BROWSERS_PATH=' + browsersPath + ' && "' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\playwright\\cli.js" install chromium"';
+    
+    logInfo('Running: Playwright install chromium...');
+    var output = RunCommand(cmd);
+    log(output);
+    
+    checkPlaywrightStatus();
+}
+
+function checkPlaywright() {
+    logInfo('Checking Playwright installation...');
+    
+    var pwPath = appHome + '\\node_modules\\playwright';
+    if (PathExists(pwPath)) {
+        logSuccess('Playwright npm package: Found');
+    } else {
+        logWarn('Playwright npm package: Not found');
+    }
+    
+    if (PathExists(browsersPath)) {
+        logSuccess('Chromium browser: Found at ' + browsersPath);
+    } else {
+        logWarn('Chromium browser: Not found');
+        logInfo('Run "Install Chromium" to download');
+    }
+    
+    checkPlaywrightStatus();
+}
+
+// Initialize on load
+window.onload = init;
+</script>
+</body>
+</html>
