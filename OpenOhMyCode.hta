@@ -220,12 +220,12 @@ input[type="text"]:focus, select:focus {
 }
 
 .output-content {
-    height: 150px;
+    height: 180px;
     overflow-y: auto;
     padding: 12px;
     font-family: Consolas, monospace;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.6;
     white-space: pre-wrap;
 }
 
@@ -300,10 +300,10 @@ input[type="text"]:focus, select:focus {
 <div class="container">
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-item active" onclick="showPanel('main')">&#9654;</div>
-        <div class="sidebar-item" onclick="showPanel('worktree')">&#9874;</div>
-        <div class="sidebar-item" onclick="showPanel('playwright')">&#9881;</div>
-        <div class="sidebar-item" onclick="showPanel('settings')">&#9881;</div>
+        <div class="sidebar-item active" onclick="showPanel('main', this)">&#9654;</div>
+        <div class="sidebar-item" onclick="showPanel('worktree', this)">&#9874;</div>
+        <div class="sidebar-item" onclick="showPanel('playwright', this)">&#9881;</div>
+        <div class="sidebar-item" onclick="showPanel('settings', this)">&#9881;</div>
     </div>
 
     <!-- Main Content -->
@@ -560,22 +560,29 @@ function logSuccess(msg) { log('[OK] ' + msg, 'success'); }
 function logError(msg) { log('[ERROR] ' + msg, 'error'); }
 function logWarn(msg) { log('[WARN] ' + msg, 'warn'); }
 
-function showPanel(name) {
+function showPanel(name, element) {
     var panels = ['main', 'worktree', 'playwright', 'settings'];
     var titles = { main: 'Start', worktree: 'Worktrees', playwright: 'Playwright', settings: 'Settings' };
     var outputs = { main: 'output', worktree: 'output-wt', playwright: 'output-pw', settings: 'output' };
     
-    for (var i = 0; i < panels.length; i++) {
-        document.getElementById('panel-' + panels[i]).className = 'panel';
+    try {
+        for (var i = 0; i < panels.length; i++) {
+            var pnl = document.getElementById('panel-' + panels[i]);
+            if (pnl) pnl.className = 'panel';
+        }
+        var items = document.querySelectorAll('.sidebar-item');
+        for (var i = 0; i < items.length; i++) {
+            items[i].className = 'sidebar-item';
+        }
+        var activePanel = document.getElementById('panel-' + name);
+        if (activePanel) activePanel.className = 'panel active';
+        if (element) element.className = 'sidebar-item active';
+        var titleEl = document.getElementById('headerTitle');
+        if (titleEl) titleEl.innerText = titles[name];
+        currentOutput = outputs[name];
+    } catch(e) {
+        alert('Error: ' + e.message);
     }
-    var items = document.querySelectorAll('.sidebar-item');
-    for (var i = 0; i < items.length; i++) {
-        items[i].className = 'sidebar-item';
-    }
-    document.getElementById('panel-' + name).className = 'panel active';
-    event.currentTarget.className = 'sidebar-item active';
-    document.getElementById('headerTitle').innerText = titles[name];
-    currentOutput = outputs[name];
 }
 
 function browseFolder() {
@@ -688,6 +695,11 @@ function checkPlaywright() {
 }
 
 window.onload = init;
-</script>
+
+function handleError(msg, url, line) {
+    alert('Script Error:\n' + msg + '\nLine: ' + line);
+    return true;
+}
+window.onerror = handleError;
 </body>
 </html>
