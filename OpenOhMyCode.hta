@@ -20,7 +20,7 @@
     SHOWINTASKBAR="yes"
     SINGLEINSTANCE="yes"
     SYSMENU="yes"
-    VERSION="2.0"
+    VERSION="2.1"
     WINDOWSTATE="normal"
 />
 <style>
@@ -36,13 +36,11 @@ html, body {
     color: #cccccc;
 }
 
-/* Main container */
 .container {
     width: 100%;
     height: 100%;
 }
 
-/* Sidebar */
 .sidebar {
     position: absolute;
     left: 0;
@@ -66,7 +64,6 @@ html, body {
 .sidebar-item:hover { color: #ffffff; background: #444444; }
 .sidebar-item.active { color: #ffffff; background: #094771; }
 
-/* Main content area */
 .main-content {
     position: absolute;
     left: 60px;
@@ -76,7 +73,6 @@ html, body {
     background: #1e1e1e;
 }
 
-/* Header */
 .header {
     height: 45px;
     background: #252526;
@@ -91,7 +87,6 @@ html, body {
     text-transform: uppercase;
 }
 
-/* Scrollable content */
 .content {
     position: absolute;
     top: 45px;
@@ -105,7 +100,6 @@ html, body {
 .panel { display: none; }
 .panel.active { display: block; }
 
-/* Sections */
 .section {
     margin-bottom: 25px;
 }
@@ -119,7 +113,6 @@ html, body {
     border-bottom: 2px solid #555555;
 }
 
-/* Form elements */
 .form-line {
     margin-bottom: 15px;
 }
@@ -153,7 +146,6 @@ input[type="text"]:focus, select:focus {
     outline: none;
 }
 
-/* Buttons */
 .btn {
     height: 36px;
     padding: 0 20px;
@@ -182,7 +174,6 @@ input[type="text"]:focus, select:focus {
     margin-bottom: 10px;
 }
 
-/* Status bar */
 .status-bar {
     position: absolute;
     bottom: 0;
@@ -200,7 +191,6 @@ input[type="text"]:focus, select:focus {
     margin-right: 30px;
 }
 
-/* Output */
 .output-box {
     margin-top: 20px;
     border: 2px solid #555555;
@@ -234,7 +224,6 @@ input[type="text"]:focus, select:focus {
 .info { color: #3794ff; }
 .warn { color: #cca700; }
 
-/* Info list */
 .info-list {
     border: 2px solid #555555;
     background: #252526;
@@ -258,7 +247,6 @@ input[type="text"]:focus, select:focus {
     color: #cccccc;
 }
 
-/* Card */
 .card {
     border: 2px solid #555555;
     background: #252526;
@@ -278,7 +266,6 @@ input[type="text"]:focus, select:focus {
     line-height: 1.5;
 }
 
-/* Status dots */
 .status-row {
     padding: 8px 0;
 }
@@ -298,7 +285,6 @@ input[type="text"]:focus, select:focus {
 </head>
 <body>
 <div class="container">
-    <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-item active" onclick="showPanel('main', this)">&#9654;</div>
         <div class="sidebar-item" onclick="showPanel('worktree', this)">&#9874;</div>
@@ -306,21 +292,19 @@ input[type="text"]:focus, select:focus {
         <div class="sidebar-item" onclick="showPanel('settings', this)">&#9881;</div>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
         <div class="header">
             <span class="header-title" id="headerTitle">Start</span>
         </div>
 
         <div class="content">
-            <!-- Main Panel -->
             <div id="panel-main" class="panel active">
                 <div class="section">
                     <div class="section-title">Start OpenCode</div>
                     <div class="form-line">
                         <label>Project Folder</label>
                         <input type="text" id="projectPath" placeholder="Enter path...">
-                        <button class="btn btn-secondary" onclick="browseFolder()">Browse</button>
+                        <button class="btn btn-secondary" onclick="doBrowseFolder()">Browse</button>
                         <button class="btn btn-primary" onclick="runOpenCode()">Start</button>
                     </div>
                 </div>
@@ -341,7 +325,6 @@ input[type="text"]:focus, select:focus {
                 </div>
             </div>
 
-            <!-- Worktree Panel -->
             <div id="panel-worktree" class="panel">
                 <div class="section">
                     <div class="section-title">Create Worktree</div>
@@ -389,7 +372,6 @@ input[type="text"]:focus, select:focus {
                 </div>
             </div>
 
-            <!-- Playwright Panel -->
             <div id="panel-playwright" class="panel">
                 <div class="section">
                     <div class="section-title">Browser Automation</div>
@@ -421,7 +403,6 @@ input[type="text"]:focus, select:focus {
                 </div>
             </div>
 
-            <!-- Settings Panel -->
             <div id="panel-settings" class="panel">
                 <div class="section">
                     <div class="section-title">Paths</div>
@@ -453,7 +434,7 @@ input[type="text"]:focus, select:focus {
                     <div class="section-title">About</div>
                     <div class="card">
                         <div class="card-title">OpenOhMyCode Portable</div>
-                        <div class="card-text">Version 2.0 - Portable OpenCode + oh-my-opencode bundle<br>Run multiple AI agents in parallel with git worktree isolation.</div>
+                        <div class="card-text">Version 2.1 - Portable OpenCode + oh-my-opencode bundle<br>Run multiple AI agents in parallel with git worktree isolation.</div>
                     </div>
                 </div>
             </div>
@@ -461,76 +442,74 @@ input[type="text"]:focus, select:focus {
 
         <div class="status-bar">
             <span>Ready</span>
-            <span>OpenOhMyCode Portable v2.0</span>
+            <span>OpenOhMyCode Portable v2.1</span>
         </div>
     </div>
 </div>
 
-<script language="VBScript">
-Dim fso, shell
-Set fso = CreateObject("Scripting.FileSystemObject")
-Set shell = CreateObject("WScript.Shell")
-
-Function GetPortableRoot()
-    Dim path
-    path = Replace(location.pathname, "/", "\")
-    path = Replace(path, "OpenOhMyCode.hta", "")
-    If Left(path, 1) = "\" Then path = Mid(path, 2)
-    GetPortableRoot = path
-End Function
-
-Function RunCommand(cmd)
-    Dim exec, output
-    On Error Resume Next
-    Set exec = shell.Exec(cmd)
-    If Err.Number <> 0 Then
-        RunCommand = "Error: " & Err.Description
-        Exit Function
-    End If
-    output = ""
-    Do While exec.Status = 0 Or Not exec.StdOut.AtEndOfStream
-        If Not exec.StdOut.AtEndOfStream Then
-            output = output & exec.StdOut.ReadLine & vbCrLf
-        End If
-    Loop
-    Do While Not exec.StdErr.AtEndOfStream
-        output = output & exec.StdErr.ReadLine & vbCrLf
-    Loop
-    RunCommand = output
-End Function
-
-Function PathExists(path)
-    PathExists = fso.FolderExists(path) Or fso.FileExists(path)
-End Function
-
-Function BrowseFolder()
-    Dim folderDialog, result
-    On Error Resume Next
-    Set folderDialog = CreateObject("Shell.Application")
-    Set result = folderDialog.BrowseForFolder(0, "Select Project Folder", 0)
-    If Err.Number = 0 And Not result Is Nothing Then
-        BrowseFolder = result.Self.Path
-    Else
-        BrowseFolder = ""
-    End If
-End Function
-</script>
-
 <script language="JScript">
+// Global variables
 var portableRoot = '';
 var nodeHome = '';
 var appHome = '';
 var configDir = '';
 var browsersPath = '';
 var currentOutput = 'output';
-var jshell = new ActiveXObject('WScript.Shell');
-var jfso = new ActiveXObject('Scripting.FileSystemObject');
+
+// COM objects
+var shell = null;
+var fso = null;
+
+function initCOM() {
+    try {
+        shell = new ActiveXObject('WScript.Shell');
+        fso = new ActiveXObject('Scripting.FileSystemObject');
+    } catch(e) {
+        alert('Failed to initialize COM objects: ' + e.message);
+    }
+}
+
+function getPortableRoot() {
+    var path = location.pathname;
+    path = path.replace(/\//g, '\\');
+    path = path.replace('OpenOhMyCode.hta', '');
+    if (path.charAt(0) == '\\') {
+        path = path.substring(1);
+    }
+    if (path.charAt(path.length - 1) == '\\') {
+        path = path.substring(0, path.length - 1);
+    }
+    return path;
+}
+
+function pathExists(path) {
+    if (!fso) return false;
+    return fso.FolderExists(path) || fso.FileExists(path);
+}
+
+function runCommand(cmd) {
+    if (!shell) return 'Error: Shell not initialized';
+    try {
+        var exec = shell.Exec(cmd);
+        var output = '';
+        while (exec.Status == 0 || !exec.StdOut.AtEndOfStream) {
+            if (!exec.StdOut.AtEndOfStream) {
+                output += exec.StdOut.ReadLine() + '\r\n';
+            }
+        }
+        while (!exec.StdErr.AtEndOfStream) {
+            output += exec.StdErr.ReadLine() + '\r\n';
+        }
+        return output;
+    } catch(e) {
+        return 'Error: ' + e.message;
+    }
+}
 
 function init() {
-    portableRoot = GetPortableRoot();
-    if (portableRoot.charAt(portableRoot.length - 1) == '\\') {
-        portableRoot = portableRoot.substring(0, portableRoot.length - 1);
-    }
+    initCOM();
+    
+    portableRoot = getPortableRoot();
     nodeHome = portableRoot + '\\nodejs';
     appHome = portableRoot + '\\app';
     configDir = portableRoot + '\\config';
@@ -547,7 +526,9 @@ function init() {
 function log(msg, type) {
     var output = document.getElementById(currentOutput);
     var line = document.createElement('div');
-    if (type) line.className = type;
+    if (type) {
+        line.className = type;
+    }
     line.innerText = msg;
     output.appendChild(line);
     output.scrollTop = output.scrollHeight;
@@ -557,13 +538,21 @@ function clearOutput() {
     document.getElementById(currentOutput).innerHTML = '';
 }
 
-function logInfo(msg) { log('[INFO] ' + msg, 'info'); }
+function logInfo(msg) {
+    log('[INFO] ' + msg, 'info');
+}
 
-function logSuccess(msg) { log('[OK] ' + msg, 'success'); }
+function logSuccess(msg) {
+    log('[OK] ' + msg, 'success');
+}
 
-function logError(msg) { log('[ERROR] ' + msg, 'error'); }
+function logError(msg) {
+    log('[ERROR] ' + msg, 'error');
+}
 
-function logWarn(msg) { log('[WARN] ' + msg, 'warn'); }
+function logWarn(msg) {
+    log('[WARN] ' + msg, 'warn');
+}
 
 function showPanel(name, element) {
     var panels = ['main', 'worktree', 'playwright', 'settings'];
@@ -573,100 +562,146 @@ function showPanel(name, element) {
     try {
         for (var i = 0; i < panels.length; i++) {
             var pnl = document.getElementById('panel-' + panels[i]);
-            if (pnl) pnl.className = 'panel';
+            if (pnl) {
+                pnl.className = 'panel';
+            }
         }
         var items = document.querySelectorAll('.sidebar-item');
         for (var i = 0; i < items.length; i++) {
             items[i].className = 'sidebar-item';
         }
         var activePanel = document.getElementById('panel-' + name);
-        if (activePanel) activePanel.className = 'panel active';
-        if (element) element.className = 'sidebar-item active';
+        if (activePanel) {
+            activePanel.className = 'panel active';
+        }
+        if (element) {
+            element.className = 'sidebar-item active';
+        }
         var titleEl = document.getElementById('headerTitle');
-        if (titleEl) titleEl.innerText = titles[name];
+        if (titleEl) {
+            titleEl.innerText = titles[name];
+        }
         currentOutput = outputs[name];
     } catch(e) {
-        alert('Error: ' + e.message);
+        alert('showPanel Error: ' + e.message);
     }
 }
 
-function browseFolder() {
-    var folder = BrowseFolder();
-    if (folder) document.getElementById('projectPath').value = folder;
+function doBrowseFolder() {
+    try {
+        var folderDialog = new ActiveXObject('Shell.Application');
+        var result = folderDialog.BrowseForFolder(0, 'Select Project Folder', 0);
+        if (result) {
+            document.getElementById('projectPath').value = result.Self.Path;
+        }
+    } catch(e) {
+        alert('Browse Error: ' + e.message);
+    }
 }
 
 function runOpenCode() {
     var path = document.getElementById('projectPath').value;
-    if (!path) { logError('Enter project path'); return; }
-    if (!PathExists(path)) { logError('Folder not found'); return; }
+    if (!path) {
+        logError('Enter project path');
+        return;
+    }
+    if (!pathExists(path)) {
+        logError('Folder not found');
+        return;
+    }
     logInfo('Starting OpenCode...');
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\opencode-ai\\bin\\opencode"';
-    jshell.CurrentDirectory = path;
-    jshell.Run('cmd /k "' + cmd + '"', 1, false);
+    shell.CurrentDirectory = path;
+    shell.Run('cmd /k "' + cmd + '"', 1, false);
     logSuccess('Started');
 }
 
-function openInCurrentFolder() { document.getElementById('projectPath').value = portableRoot; }
+function openInCurrentFolder() {
+    document.getElementById('projectPath').value = portableRoot;
+}
 
-function openConfig() { jshell.Run('explorer "' + configDir + '"', 1, false); }
+function openConfig() {
+    try {
+        shell.Run('explorer "' + configDir + '"', 1, false);
+    } catch(e) {
+        alert('openConfig Error: ' + e.message);
+    }
+}
 
 function checkNode() {
     logInfo('Checking...');
-    if (PathExists(nodeHome + '\\node.exe')) logSuccess('Found');
-    else logError('Not found');
+    if (pathExists(nodeHome + '\\node.exe')) {
+        logSuccess('Found');
+    } else {
+        logError('Not found');
+    }
 }
 
 function checkOpenCode() {
     logInfo('Checking...');
-    if (PathExists(appHome + '\\node_modules\\opencode-ai\\bin\\opencode')) logSuccess('Found');
-    else logError('Not found');
+    if (pathExists(appHome + '\\node_modules\\opencode-ai\\bin\\opencode')) {
+        logSuccess('Found');
+    } else {
+        logError('Not found');
+    }
 }
 
 function createWorktree() {
     var name = document.getElementById('wtName').value;
     var agent = document.getElementById('wtAgent').value;
-    if (!name) { logError('Enter name'); return; }
+    if (!name) {
+        logError('Enter name');
+        return;
+    }
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree create ' + name;
-    if (agent) cmd += ' --agent ' + agent;
-    log(RunCommand(cmd));
+    if (agent) {
+        cmd += ' --agent ' + agent;
+    }
+    log(runCommand(cmd));
 }
 
 function listWorktrees() {
-    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree list'));
+    log(runCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree list'));
 }
 
 function showStatus() {
-    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status'));
+    log(runCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status'));
 }
 
 function checkConflicts() {
-    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status --conflicts'));
+    log(runCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status --conflicts'));
 }
 
 function mergeWorktree() {
     var name = document.getElementById('wtMergeName').value;
-    if (!name) { logError('Enter name'); return; }
-    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree merge ' + name + ' --yes'));
+    if (!name) {
+        logError('Enter name');
+        return;
+    }
+    log(runCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree merge ' + name + ' --yes'));
 }
 
 function deleteWorktree() {
     var name = document.getElementById('wtMergeName').value;
-    if (!name) { logError('Enter name'); return; }
-    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup ' + name + ' --force'));
+    if (!name) {
+        logError('Enter name');
+        return;
+    }
+    log(runCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup ' + name + ' --force'));
 }
 
 function cleanupMerged() {
-    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --merged --force'));
+    log(runCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --merged --force'));
 }
 
 function cleanupAll() {
-    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --all --force'));
+    log(runCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --all --force'));
 }
 
 function checkPlaywrightStatus() {
     var npmStatus = document.getElementById('pwNpmStatus');
     var npmText = document.getElementById('pwNpmText');
-    if (PathExists(appHome + '\\node_modules\\playwright')) {
+    if (pathExists(appHome + '\\node_modules\\playwright')) {
         npmStatus.className = 'status-dot ok';
         npmText.innerText = 'Playwright npm: Installed';
     } else {
@@ -675,7 +710,7 @@ function checkPlaywrightStatus() {
     }
     var browserStatus = document.getElementById('pwBrowserStatus');
     var browserText = document.getElementById('pwBrowserText');
-    if (PathExists(browsersPath)) {
+    if (pathExists(browsersPath)) {
         browserStatus.className = 'status-dot ok';
         browserText.innerText = 'Chromium: Installed';
     } else {
@@ -687,25 +722,32 @@ function checkPlaywrightStatus() {
 function installPlaywright() {
     logInfo('Installing...');
     var cmd = 'cmd /c "set PLAYWRIGHT_BROWSERS_PATH=' + browsersPath + ' && "' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\playwright\\cli.js" install chromium"';
-    log(RunCommand(cmd));
+    log(runCommand(cmd));
     checkPlaywrightStatus();
 }
 
 function checkPlaywright() {
     logInfo('Checking...');
     checkPlaywrightStatus();
-    if (PathExists(appHome + '\\node_modules\\playwright')) logSuccess('npm: OK');
-    else logWarn('npm: Missing');
-    if (PathExists(browsersPath)) logSuccess('Chromium: OK');
-    else logWarn('Chromium: Missing');
+    if (pathExists(appHome + '\\node_modules\\playwright')) {
+        logSuccess('npm: OK');
+    } else {
+        logWarn('npm: Missing');
+    }
+    if (pathExists(browsersPath)) {
+        logSuccess('Chromium: OK');
+    } else {
+        logWarn('Chromium: Missing');
+    }
 }
-
-window.onload = init;
 
 function handleError(msg, url, line) {
     alert('Script Error:\n' + msg + '\nLine: ' + line);
     return true;
 }
+
 window.onerror = handleError;
+window.onload = init;
+</script>
 </body>
 </html>
