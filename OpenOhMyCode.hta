@@ -30,48 +30,36 @@ html, body {
     height: 100%;
     overflow: hidden;
     font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 13px;
+    font-size: 18px;
     background: #1e1e1e;
     color: #cccccc;
 }
 
-/* Layout */
-.app {
-    width: 100%;
-    height: 100%;
-    display: table;
-}
+.app { width: 100%; height: 100%; display: table; }
 
-/* Sidebar */
+/* Sidebar - 70px wide */
 .sidebar {
-    width: 48px;
+    width: 70px;
     height: 100%;
     background: #333333;
-    border-right: 1px solid #3c3c3c;
+    border-right: 2px solid #3c3c3c;
     display: table-cell;
     vertical-align: top;
-    padding-top: 8px;
+    padding-top: 15px;
 }
 
 .sidebar-item {
-    width: 48px;
-    height: 48px;
+    width: 70px;
+    height: 70px;
     text-align: center;
-    line-height: 48px;
+    line-height: 70px;
     cursor: pointer;
     color: #858585;
-    font-size: 20px;
+    font-size: 32px;
 }
 
-.sidebar-item:hover {
-    color: #ffffff;
-    background: #2a2d2e;
-}
-
-.sidebar-item.active {
-    color: #ffffff;
-    background: #094771;
-}
+.sidebar-item:hover { color: #ffffff; background: #2a2d2e; }
+.sidebar-item.active { color: #ffffff; background: #094771; }
 
 /* Main Content */
 .main {
@@ -80,221 +68,141 @@ html, body {
     vertical-align: top;
 }
 
-/* Header */
+/* Header - 50px tall */
 .header {
-    height: 35px;
+    height: 50px;
     background: #323233;
-    border-bottom: 1px solid #3c3c3c;
-    line-height: 35px;
-    padding: 0 16px;
+    border-bottom: 2px solid #3c3c3c;
+    line-height: 50px;
+    padding: 0 20px;
 }
 
 .header-title {
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 600;
     color: #858585;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 /* Content */
 .content-area {
-    height: calc(100% - 35px - 28px);
+    padding: 30px;
     overflow: auto;
-    padding: 20px;
 }
 
-.panel {
-    display: none;
-}
-
-.panel.active {
-    display: block;
-}
+.panel { display: none; }
+.panel.active { display: block; }
 
 /* Sections */
-.section {
-    margin-bottom: 24px;
-}
+.section { margin-bottom: 35px; }
 
 .section-header {
-    padding-bottom: 8px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #3c3c3c;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #3c3c3c;
 }
 
 .section-title {
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 600;
     color: #858585;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 /* Form */
-.form-row {
-    margin-bottom: 12px;
-}
+.form-row { margin-bottom: 18px; }
+.form-row:after { content: ""; display: table; clear: both; }
 
-.form-row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.form-group {
-    margin-bottom: 8px;
-}
-
-.form-group.inline {
-    float: left;
-    margin-right: 8px;
-    margin-bottom: 0;
-}
-
-.form-group.inline-btn {
-    float: left;
-    margin-right: 8px;
-    margin-bottom: 0;
-    width: auto;
-}
+.form-group { margin-bottom: 15px; }
+.form-group.inline { float: left; margin-right: 15px; margin-bottom: 0; }
 
 .form-label {
     display: block;
-    font-size: 11px;
+    font-size: 16px;
     color: #858585;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 .form-input, .form-select {
-    width: 100%;
-    height: 28px;
-    padding: 0 10px;
+    width: 400px;
+    height: 44px;
+    padding: 0 15px;
     background: #3c3c3c;
-    border: 1px solid #3c3c3c;
+    border: 2px solid #3c3c3c;
     color: #cccccc;
     font-family: inherit;
-    font-size: 13px;
+    font-size: 18px;
     outline: none;
 }
 
-.form-input:focus, .form-select:focus {
-    border-color: #007acc;
-}
-
-.form-group.inline .form-input,
-.form-group.inline .form-select {
-    width: 200px;
-}
-
-.form-group.inline-btn .form-input {
-    width: 350px;
-}
+.form-input:focus, .form-select:focus { border-color: #007acc; }
 
 /* Buttons */
 .btn {
-    height: 28px;
-    padding: 0 16px;
+    height: 44px;
+    padding: 0 28px;
     border: none;
     font-family: inherit;
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 500;
     cursor: pointer;
     color: #ffffff;
 }
 
-.btn-primary {
-    background: #0e639c;
-}
+.btn-primary { background: #0e639c; }
+.btn-primary:hover { background: #1177bb; }
+.btn-secondary { background: #3c3c3c; color: #cccccc; }
+.btn-secondary:hover { background: #4e4e4e; }
+.btn-success { background: #1c6e1c; }
+.btn-success:hover { background: #2d8c2d; }
+.btn-danger { background: #c42b1c; }
+.btn-danger:hover { background: #d63a2a; }
 
-.btn-primary:hover {
-    background: #1177bb;
-}
-
-.btn-secondary {
-    background: #3c3c3c;
-    color: #cccccc;
-}
-
-.btn-secondary:hover {
-    background: #4e4e4e;
-}
-
-.btn-success {
-    background: #1c6e1c;
-}
-
-.btn-success:hover {
-    background: #2d8c2d;
-}
-
-.btn-danger {
-    background: #c42b1c;
-}
-
-.btn-danger:hover {
-    background: #d63a2a;
-}
-
-.btn-small {
-    height: 24px;
-    padding: 0 10px;
-    font-size: 11px;
-}
+.btn-small { height: 32px; padding: 0 15px; font-size: 14px; }
 
 /* Button Grid */
-.btn-grid {
-    overflow: hidden;
-}
-
-.btn-grid .btn {
-    float: left;
-    margin: 0 8px 8px 0;
-    min-width: 140px;
-}
+.btn-grid { overflow: hidden; }
+.btn-grid .btn { float: left; margin: 0 15px 15px 0; min-width: 200px; }
 
 /* Status Bar */
 .status-bar {
-    height: 28px;
+    height: 40px;
     background: #007acc;
-    line-height: 28px;
-    padding: 0 16px;
-    font-size: 11px;
+    line-height: 40px;
+    padding: 0 20px;
+    font-size: 16px;
     color: #ffffff;
 }
-
-.status-bar span {
-    margin-right: 24px;
-}
+.status-bar span { margin-right: 35px; }
 
 /* Output Panel */
 .output-panel {
     background: #1e1e1e;
-    border: 1px solid #3c3c3c;
-    margin-top: 16px;
+    border: 2px solid #3c3c3c;
+    margin-top: 25px;
 }
 
 .output-header {
     background: #252526;
-    padding: 6px 12px;
-    border-bottom: 1px solid #3c3c3c;
-    overflow: hidden;
+    padding: 10px 18px;
+    border-bottom: 2px solid #3c3c3c;
 }
 
 .output-title {
-    font-size: 11px;
+    font-size: 16px;
     color: #858585;
     text-transform: uppercase;
-    float: left;
 }
 
 .output-content {
-    height: 140px;
+    height: 200px;
     overflow-y: auto;
-    padding: 12px;
+    padding: 18px;
     font-family: Consolas, 'Courier New', monospace;
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.6;
     white-space: pre-wrap;
     background: #1e1e1e;
 }
@@ -307,50 +215,45 @@ html, body {
 /* Info List */
 .info-list {
     background: #252526;
-    border: 1px solid #3c3c3c;
+    border: 2px solid #3c3c3c;
 }
 
 .info-row {
-    padding: 8px 12px;
+    padding: 12px 18px;
     border-bottom: 1px solid #3c3c3c;
-    overflow: hidden;
 }
 
-.info-row:last-child {
-    border-bottom: none;
-}
+.info-row:last-child { border-bottom: none; }
 
 .info-label {
-    float: left;
-    width: 100px;
+    display: inline-block;
+    width: 140px;
     color: #858585;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .info-value {
-    float: left;
-    color: #cccccc;
     font-family: Consolas, 'Courier New', monospace;
-    font-size: 12px;
+    font-size: 16px;
+    color: #cccccc;
 }
 
 /* Card */
 .card {
     background: #252526;
-    border: 1px solid #3c3c3c;
-    padding: 16px;
-    margin-bottom: 16px;
+    border: 2px solid #3c3c3c;
+    padding: 20px;
 }
 
 .card-title {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 8px;
+    color: #cccccc;
+    margin-bottom: 10px;
 }
 
 .card-text {
-    font-size: 12px;
+    font-size: 16px;
     color: #858585;
     line-height: 1.6;
 }
@@ -358,70 +261,62 @@ html, body {
 /* Status Check */
 .status-check {
     background: #252526;
-    border: 1px solid #3c3c3c;
-    padding: 12px;
+    border: 2px solid #3c3c3c;
+    padding: 15px 18px;
 }
 
 .status-row {
-    margin-bottom: 8px;
-}
-
-.status-row:last-child {
-    margin-bottom: 0;
+    padding: 8px 0;
+    font-size: 16px;
 }
 
 .status-dot {
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    margin-right: 8px;
+    margin-right: 12px;
+    vertical-align: middle;
 }
 
 .status-dot.ok { background: #4ec9b0; }
 .status-dot.warn { background: #cca700; }
 .status-dot.error { background: #f14c4c; }
-
-/* Clear */
-.clear { clear: both; }
 </style>
 </head>
 <body>
 <div class="app">
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-item active" onclick="showPanel('main')" title="Start">&#9654;</div>
-        <div class="sidebar-item" onclick="showPanel('worktree')" title="Worktrees">&#9632;</div>
+        <div class="sidebar-item active" onclick="showPanel('main')" title="Main">&#9654;</div>
+        <div class="sidebar-item" onclick="showPanel('worktree')" title="Worktrees">&#9874;</div>
         <div class="sidebar-item" onclick="showPanel('playwright')" title="Playwright">&#9881;</div>
-        <div class="sidebar-item" onclick="showPanel('settings')" title="Settings">&#9993;</div>
+        <div class="sidebar-item" onclick="showPanel('settings')" title="Settings">&#9881;</div>
     </div>
 
     <!-- Main Content -->
     <div class="main">
-        <!-- Header -->
         <div class="header">
             <span class="header-title" id="headerTitle">Start</span>
         </div>
 
-        <!-- Content Area -->
         <div class="content-area">
             <!-- Main Panel -->
             <div id="panel-main" class="panel active">
                 <div class="section">
                     <div class="section-header"><span class="section-title">Start OpenCode</span></div>
                     <div class="form-row">
-                        <div class="form-group inline-btn">
+                        <div class="form-group inline">
                             <label class="form-label">Project Folder</label>
-                            <input type="text" class="form-input" id="projectPath" placeholder="Enter path...">
+                            <input type="text" class="form-input" id="projectPath" placeholder="Enter path or browse...">
                         </div>
-                        <div class="form-group inline" style="padding-top:20px;">
+                        <div class="form-group inline" style="padding-top:32px;">
                             <button class="btn btn-secondary" onclick="browseFolder()">Browse</button>
                         </div>
-                        <div class="form-group inline" style="padding-top:20px;">
+                        <div class="form-group inline" style="padding-top:32px;">
                             <button class="btn btn-primary" onclick="runOpenCode()">Start</button>
                         </div>
                     </div>
-                    <div class="clear"></div>
                 </div>
 
                 <div class="section">
@@ -437,7 +332,7 @@ html, body {
                 <div class="output-panel">
                     <div class="output-header">
                         <span class="output-title">Output</span>
-                        <button class="btn btn-secondary btn-small" style="float:right;margin-top:-3px;" onclick="clearOutput()">Clear</button>
+                        <button class="btn btn-secondary btn-small" style="float:right;margin-top:-5px;" onclick="clearOutput()">Clear</button>
                     </div>
                     <div class="output-content" id="output"></div>
                 </div>
@@ -450,24 +345,24 @@ html, body {
                     <div class="form-row">
                         <div class="form-group inline">
                             <label class="form-label">Name</label>
-                            <input type="text" class="form-input" id="wtName" placeholder="feature-auth">
+                            <input type="text" class="form-input" id="wtName" style="width:280px;" placeholder="feature-auth">
                         </div>
                         <div class="form-group inline">
                             <label class="form-label">Agent</label>
-                            <select class="form-select" id="wtAgent">
+                            <select class="form-select" id="wtAgent" style="width:200px;">
                                 <option value="">None</option>
                                 <option value="sisyphus">sisyphus</option>
                                 <option value="hephaestus">hephaestus</option>
                                 <option value="oracle">oracle</option>
                                 <option value="librarian">librarian</option>
                                 <option value="explore">explore</option>
+                                <option value="frontend-ui-ux">frontend-ui-ux</option>
                             </select>
                         </div>
-                        <div class="form-group inline" style="padding-top:20px;">
+                        <div class="form-group inline" style="padding-top:32px;">
                             <button class="btn btn-success" onclick="createWorktree()">Create</button>
                         </div>
                     </div>
-                    <div class="clear"></div>
                 </div>
 
                 <div class="section">
@@ -484,17 +379,16 @@ html, body {
                     <div class="form-row">
                         <div class="form-group inline">
                             <label class="form-label">Worktree Name</label>
-                            <input type="text" class="form-input" id="wtMergeName" placeholder="feature-auth">
+                            <input type="text" class="form-input" id="wtMergeName" style="width:280px;" placeholder="feature-auth">
                         </div>
-                        <div class="form-group inline" style="padding-top:20px;">
+                        <div class="form-group inline" style="padding-top:32px;">
                             <button class="btn btn-secondary" onclick="mergeWorktree()">Merge</button>
                         </div>
-                        <div class="form-group inline" style="padding-top:20px;">
+                        <div class="form-group inline" style="padding-top:32px;">
                             <button class="btn btn-danger" onclick="deleteWorktree()">Delete</button>
                         </div>
                     </div>
-                    <div class="clear"></div>
-                    <div style="margin-top:12px;">
+                    <div style="margin-top:18px;">
                         <button class="btn btn-secondary" onclick="cleanupMerged()">Cleanup Merged</button>
                         <button class="btn btn-danger" onclick="cleanupAll()">Cleanup All</button>
                     </div>
@@ -503,7 +397,7 @@ html, body {
                 <div class="output-panel">
                     <div class="output-header">
                         <span class="output-title">Output</span>
-                        <button class="btn btn-secondary btn-small" style="float:right;margin-top:-3px;" onclick="clearOutput()">Clear</button>
+                        <button class="btn btn-secondary btn-small" style="float:right;margin-top:-5px;" onclick="clearOutput()">Clear</button>
                     </div>
                     <div class="output-content" id="output-wt"></div>
                 </div>
@@ -517,7 +411,7 @@ html, body {
                         <div class="card-title">Playwright with Chromium</div>
                         <div class="card-text">Install Chromium browser for automated testing.<br>Download size: ~135MB</div>
                     </div>
-                    <div style="margin-top:16px;">
+                    <div style="margin-top:25px;">
                         <button class="btn btn-success" onclick="installPlaywright()">Install Chromium</button>
                         <button class="btn btn-secondary" onclick="checkPlaywright()">Check Status</button>
                     </div>
@@ -540,7 +434,7 @@ html, body {
                 <div class="output-panel">
                     <div class="output-header">
                         <span class="output-title">Output</span>
-                        <button class="btn btn-secondary btn-small" style="float:right;margin-top:-3px;" onclick="clearOutput()">Clear</button>
+                        <button class="btn btn-secondary btn-small" style="float:right;margin-top:-5px;" onclick="clearOutput()">Clear</button>
                     </div>
                     <div class="output-content" id="output-pw"></div>
                 </div>
@@ -588,7 +482,6 @@ html, body {
             </div>
         </div>
 
-        <!-- Status Bar -->
         <div class="status-bar">
             <span>Ready</span>
             <span>OpenOhMyCode Portable v2.0</span>
@@ -669,7 +562,6 @@ function init() {
     document.getElementById('pathApp').innerText = appHome;
     document.getElementById('pathConfig').innerText = configDir;
     document.getElementById('pathBrowsers').innerText = browsersPath;
-    
     checkPlaywrightStatus();
 }
 
@@ -698,11 +590,13 @@ function showPanel(name) {
     
     for (var i = 0; i < panels.length; i++) {
         document.getElementById('panel-' + panels[i]).className = 'panel';
-        document.getElementById('panel-' + panels[i]).previousSibling.className = 'sidebar-item';
     }
-    
+    var items = document.querySelectorAll('.sidebar-item');
+    for (var i = 0; i < items.length; i++) {
+        items[i].className = 'sidebar-item';
+    }
     document.getElementById('panel-' + name).className = 'panel active';
-    event.srcElement.className = 'sidebar-item active';
+    event.currentTarget.className = 'sidebar-item active';
     document.getElementById('headerTitle').innerText = titles[name];
     currentOutput = outputs[name];
 }
@@ -716,7 +610,6 @@ function runOpenCode() {
     var path = document.getElementById('projectPath').value;
     if (!path) { logError('Enter project path'); return; }
     if (!PathExists(path)) { logError('Folder not found'); return; }
-    
     logInfo('Starting OpenCode...');
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\opencode-ai\\bin\\opencode"';
     shell.CurrentDirectory = path;
@@ -724,85 +617,65 @@ function runOpenCode() {
     logSuccess('Started');
 }
 
-function openInCurrentFolder() {
-    document.getElementById('projectPath').value = portableRoot;
-}
-
-function openConfig() {
-    shell.Run('explorer "' + configDir + '"', 1, false);
-}
+function openInCurrentFolder() { document.getElementById('projectPath').value = portableRoot; }
+function openConfig() { shell.Run('explorer "' + configDir + '"', 1, false); }
 
 function checkNode() {
     logInfo('Checking...');
-    if (PathExists(nodeHome + '\\node.exe')) {
-        logSuccess('Found: ' + nodeHome + '\\node.exe');
-    } else {
-        logError('Not found');
-    }
+    if (PathExists(nodeHome + '\\node.exe')) logSuccess('Found: ' + nodeHome + '\\node.exe');
+    else logError('Not found');
 }
 
 function checkOpenCode() {
     logInfo('Checking...');
-    if (PathExists(appHome + '\\node_modules\\opencode-ai\\bin\\opencode')) {
-        logSuccess('Found');
-    } else {
-        logError('Not found');
-    }
+    if (PathExists(appHome + '\\node_modules\\opencode-ai\\bin\\opencode')) logSuccess('Found');
+    else logError('Not found');
 }
 
 function createWorktree() {
     var name = document.getElementById('wtName').value;
     var agent = document.getElementById('wtAgent').value;
     if (!name) { logError('Enter name'); return; }
-    
     var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree create ' + name;
     if (agent) cmd += ' --agent ' + agent;
     log(RunCommand(cmd));
 }
 
 function listWorktrees() {
-    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree list';
-    log(RunCommand(cmd));
+    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree list'));
 }
 
 function showStatus() {
-    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status';
-    log(RunCommand(cmd));
+    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status'));
 }
 
 function checkConflicts() {
-    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status --conflicts';
-    log(RunCommand(cmd));
+    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree status --conflicts'));
 }
 
 function mergeWorktree() {
     var name = document.getElementById('wtMergeName').value;
     if (!name) { logError('Enter name'); return; }
-    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree merge ' + name + ' --yes';
-    log(RunCommand(cmd));
+    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree merge ' + name + ' --yes'));
 }
 
 function deleteWorktree() {
     var name = document.getElementById('wtMergeName').value;
     if (!name) { logError('Enter name'); return; }
-    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup ' + name + ' --force';
-    log(RunCommand(cmd));
+    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup ' + name + ' --force'));
 }
 
 function cleanupMerged() {
-    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --merged --force';
-    log(RunCommand(cmd));
+    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --merged --force'));
 }
 
 function cleanupAll() {
-    var cmd = '"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --all --force';
-    log(RunCommand(cmd));
+    log(RunCommand('"' + nodeHome + '\\node.exe" "' + appHome + '\\node_modules\\oh-my-opencode\\dist\\cli\\index.js" worktree cleanup --all --force'));
 }
 
 function checkPlaywrightStatus() {
     var npmStatus = document.getElementById('pwNpmStatus');
     var npmText = document.getElementById('pwNpmText');
-    
     if (PathExists(appHome + '\\node_modules\\playwright')) {
         npmStatus.className = 'status-dot ok';
         npmText.innerText = 'Playwright npm: Installed';
@@ -810,10 +683,8 @@ function checkPlaywrightStatus() {
         npmStatus.className = 'status-dot warn';
         npmText.innerText = 'Playwright npm: Not installed';
     }
-    
     var browserStatus = document.getElementById('pwBrowserStatus');
     var browserText = document.getElementById('pwBrowserText');
-    
     if (PathExists(browsersPath)) {
         browserStatus.className = 'status-dot ok';
         browserText.innerText = 'Chromium: Installed';
