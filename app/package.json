@@ -1,1 +1,1 @@
-{"name":"openohmycode-portable","version":"1.0.0","private":true,"dependencies":{"oh-my-opencode":"^3.8.5","opencode-ai":"^1.2.14"}}
+{"name":"openohmycode-portable","version":"1.0.0","private":true,"dependencies":{"@ramtinj95/opencode-tokenscope":"^1.5.2","better-sqlite3":"^12.6.2","ocsight":"^1.2.2","oh-my-opencode":"^3.8.5","opencode-ai":"^1.2.14","opencode-usage":"^0.4.8","sql.js":"^1.14.0"}}
