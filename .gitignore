@@ -6,6 +6,7 @@ desktop.ini
 # Windows
 *.tmp
 *.log
+nul
 
 # Build artifacts
 *.zip
@@ -23,3 +24,10 @@ app/node_modules/
 !app/package-lock.json
 omo-dev/
 .sisyphus/
+
+# SQLite CLI tools (download on first use)
+app/sqldiff.exe
+app/sqlite3.exe
+app/sqlite3_analyzer.exe
+app/sqlite3_rsync.exe
+app/sqlite3.zip

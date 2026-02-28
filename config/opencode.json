@@ -3,6 +3,34 @@
   "plugin": [
     "oh-my-opencode"
   ],
+  "mcp": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "F:/OpenOhMyCodePortable"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN_HERE"
+      }
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite"]
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase"],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "YOUR_SUPABASE_ACCESS_TOKEN_HERE"
+      }
+    }
+  },
   "provider": {
     "openai": {
       "name": "OpenAI",
@@ -196,43 +224,6 @@
         "phi4": {
           "name": "phi-4-Q4_K_M.gguf",
           "limit": { "context": 131072, "output": 4096 },
-          "modalities": { "input": ["text"], "output": ["text"] }
-        }
-      }
-    }
-      "name": "Ollama (Local)",
-      "npm": "@ai-sdk/ollama",
-      "options": {
-        "baseURL": "http://localhost:11434"
-      },
-      "models": {
-        "llama": {
-          "name": "llama3.2",
-          "limit": { "context": 128000, "output": 4096 },
-          "modalities": { "input": ["text"], "output": ["text"] }
-        },
-        "codellama": {
-          "name": "codellama",
-          "limit": { "context": 128000, "output": 4096 },
-          "modalities": { "input": ["text"], "output": ["text"] }
-        },
-        "qwen": {
-          "name": "qwen2.5-coder",
-          "limit": { "context": 128000, "output": 4096 },
-          "modalities": { "input": ["text"], "output": ["text"] }
-        }
-      }
-    },
-    "lmstudio": {
-      "name": "LM Studio (Local)",
-      "npm": "@ai-sdk/openai-compatible",
-      "options": {
-        "baseURL": "http://localhost:1234/v1"
-      },
-      "models": {
-        "main": {
-          "name": "local-model",
-          "limit": { "context": 128000, "output": 4096 },
           "modalities": { "input": ["text"], "output": ["text"] }
         }
       }

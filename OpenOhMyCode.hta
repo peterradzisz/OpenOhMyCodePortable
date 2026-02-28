@@ -290,6 +290,7 @@ input[type="text"]:focus, select:focus {
         <div class="sidebar-item" onclick="showPanel('worktree', this)">&#9874;</div>
         <div class="sidebar-item" onclick="showPanel('playwright', this)">&#9881;</div>
         <div class="sidebar-item" onclick="showPanel('settings', this)">&#9881;</div>
+        <div class="sidebar-item" onclick="showPanel('monitor', this)">&#128200;</div>
     </div>
 
     <div class="main-content">
@@ -438,6 +439,56 @@ input[type="text"]:focus, select:focus {
                     </div>
                 </div>
             </div>
+
+            <!-- Monitor Panel -->
+            <div id="panel-monitor" class="panel">
+                <div class="section">
+                    <div class="section-title">Usage Statistics</div>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="monitorSummary()">Cost Summary</button>
+                        <button class="btn btn-secondary" onclick="monitorSessions()">Session List</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Live Monitoring</div>
+                    <div class="card">
+                        <div class="card-title">Real-time Message Watch</div>
+                        <div class="card-text">Watch for new messages in OpenCode sessions in real-time. Opens in a new window.</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn btn-success" onclick="monitorLive()">Start Live Monitor</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Database Info</div>
+                    <div class="info-list">
+                        <div class="info-row">
+                            <span class="info-label">Location</span>
+                            <span class="info-value" id="dbPath">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Size</span>
+                            <span class="info-value" id="dbSize">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Sessions</span>
+                            <span class="info-value" id="dbSessions">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Messages</span>
+                            <span class="info-value" id="dbMessages">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-header"><span class="output-title">Output</span></div>
+                    <div class="output-content" id="output-mon"></div>
+                </div>
+            </div>
+        </div>
         </div>
 
         <div class="status-bar">
@@ -555,9 +606,9 @@ function logWarn(msg) {
 }
 
 function showPanel(name, element) {
-    var panels = ['main', 'worktree', 'playwright', 'settings'];
-    var titles = { main: 'Start', worktree: 'Worktrees', playwright: 'Playwright', settings: 'Settings' };
-    var outputs = { main: 'output', worktree: 'output-wt', playwright: 'output-pw', settings: 'output' };
+    var panels = ['main', 'worktree', 'playwright', 'settings', 'monitor'];
+    var titles = { main: 'Start', worktree: 'Worktrees', playwright: 'Playwright', settings: 'Settings', monitor: 'Monitor' };
+    var outputs = { main: 'output', worktree: 'output-wt', playwright: 'output-pw', settings: 'output', monitor: 'output-mon' };
     
     try {
         for (var i = 0; i < panels.length; i++) {
@@ -582,10 +633,14 @@ function showPanel(name, element) {
             titleEl.innerText = titles[name];
         }
         currentOutput = outputs[name];
+        if (name == 'monitor') {
+            loadMonitorStats();
+        }
     } catch(e) {
         alert('showPanel Error: ' + e.message);
     }
 }
+
 
 function doBrowseFolder() {
     try {
@@ -741,11 +796,103 @@ function checkPlaywright() {
     }
 }
 
-function handleError(msg, url, line) {
-    alert('Script Error:\n' + msg + '\nLine: ' + line);
-    return true;
+
+function getOpenCodeDbPath() {
+    var userProfile = shell.ExpandEnvironmentStrings('%USERPROFILE%');
+    return userProfile + String.fromCharCode(92) + '.local' + String.fromCharCode(92) + 'share' + String.fromCharCode(92) + 'opencode' + String.fromCharCode(92) + 'opencode.db';
 }
 
+function loadMonitorStats() {
+    var dbPath = getOpenCodeDbPath();
+    document.getElementById('dbPath').innerText = dbPath;
+    
+    if (!pathExists(dbPath)) {
+        document.getElementById('dbSize').innerText = 'Not found';
+        document.getElementById('dbSessions').innerText = '-';
+        document.getElementById('dbMessages').innerText = '-';
+        return;
+    }
+    
+    try {
+        var file = fso.GetFile(dbPath);
+        var sizeMB = Math.round(file.Size / 1048576);
+        document.getElementById('dbSize').innerText = sizeMB + ' MB';
+        
+        var sqlitePath = appHome + String.fromCharCode(92) + 'sqlite3.exe';
+        var sessionCmd = '"' + sqlitePath + '" "' + dbPath + '" "SELECT COUNT(*) FROM session;"';
+        var sessionCount = runCommand(sessionCmd).trim();
+        document.getElementById('dbSessions').innerText = sessionCount;
+        
+        var msgCmd = '"' + sqlitePath + '" "' + dbPath + '" "SELECT COUNT(*) FROM message;"';
+        var msgCount = runCommand(msgCmd).trim();
+        document.getElementById('dbMessages').innerText = msgCount;
+    } catch(e) {
+        document.getElementById('dbSize').innerText = 'Error';
+    }
+}
+
+function monitorSummary() {
+    logInfo('Loading usage summary...');
+    var dbPath = getOpenCodeDbPath();
+    
+    if (!pathExists(dbPath)) {
+        logError('Database not found');
+        return;
+    }
+    
+    clearOutput();
+    
+    var sqlitePath = appHome + String.fromCharCode(92) + 'sqlite3.exe';
+    
+    log('=== OpenCode Usage Summary ===', 'info');
+    log('');
+    
+    var sessionCmd = '"' + sqlitePath + '" "' + dbPath + '" "SELECT COUNT(*) FROM session;"';
+    log('Sessions: ' + runCommand(sessionCmd).trim());
+    
+    var msgCmd = '"' + sqlitePath + '" "' + dbPath + '" "SELECT COUNT(*) FROM message;"';
+    log('Messages: ' + runCommand(msgCmd).trim());
+    
+    log('');
+    log('--- Recent Sessions ---', 'info');
+    
+    var recentCmd = '"' + sqlitePath + '" -column "' + dbPath + '" "SELECT substr(id, 1, 20) as ID, COALESCE(agent, chr(39) + 'default' + chr(39)) as Agent FROM session ORDER BY rowid DESC LIMIT 5;"';
+    log(runCommand(recentCmd));
+}
+
+function monitorSessions() {
+    logInfo('Loading session list...');
+    var dbPath = getOpenCodeDbPath();
+    
+    if (!pathExists(dbPath)) {
+        logError('Database not found');
+        return;
+    }
+    
+    clearOutput();
+    log('=== Recent Sessions ===', 'info');
+    log('');
+    
+    var sqlitePath = appHome + String.fromCharCode(92) + 'sqlite3.exe';
+    var cmd = '"' + sqlitePath + '" -column -header "' + dbPath + '" "SELECT substr(s.id, 1, 20) as ID, COALESCE(s.agent, chr(39) + 'default' + chr(39)) as Agent, (SELECT COUNT(*) FROM message m WHERE m.session_id = s.id) as Msgs, date(s.created_at/1000, chr(39) + 'unixepoch' + chr(39)) as Date FROM session s ORDER BY s.rowid DESC LIMIT 15;"';
+    log(runCommand(cmd));
+}
+
+function monitorLive() {
+    var dbPath = getOpenCodeDbPath();
+    
+    if (!pathExists(dbPath)) {
+        alert('Database not found');
+        return;
+    }
+    
+    var batPath = portableRoot + String.fromCharCode(92) + 'Monitor-Live.bat';
+    shell.Run('"' + batPath + '"', 1, false);
+}
+
+function handleError(msg, url, line) {
+    return true;
+}
 window.onerror = handleError;
 window.onload = init;
 </script>
