@@ -65,15 +65,33 @@ Edit `config/oh-my-opencode.json` to set which model each agent uses:
 
 - **OpenCode** v1.2.14 - AI coding assistant CLI
 - **oh-my-opencode** - Custom agents (explore, oracle, librarian, etc.)
-- **Node.js** v22.14.0 - Portable runtime (no install needed)
+PT|- **Node.js** v22.14.0 - Portable runtime (no install needed)
+KR|- **Skills** - Bundled skill repositories (see below)
+KB|
 
 ## Bundle Size
 
-~205 MB (includes all dependencies and binaries)
+RJ|~230 MB (includes all dependencies, binaries, and skills)
+HV|
 
 ## Folder Structure
 
-```
+SB|```
+BV|OpenOhMyCodePortable/
+KY|├── Start.bat                    # Double-click to launch
+JS|├── config/                      # Configuration files
+VK|│   ├── opencode.json            # API keys & providers
+MQ|│   └── oh-my-opencode.json      # Agent model mappings
+NX|├── app/                         # Application files
+YP|│   └── node_modules/            # opencode-ai + oh-my-opencode
+NM|├── nodejs/                      # Portable Node.js runtime
+QK|├── skills/                      # Bundled skill repositories
+HS|│   ├── microsoft-skills/        # Microsoft skills & MCP servers
+JB|│   ├── claude-skills-mcp/       # Claude Skills vector search
+HG|│   └── epismoai-skills/         # Portable human-AI workflows
+HJ|└── README.md                    # This file
+WB|```
+XB|
 OpenOhMyCodePortable/
 ├── Start.bat                    # Double-click to launch
 ├── config/                      # Configuration files
@@ -96,7 +114,17 @@ OpenOhMyCodePortable/
 | **frontend-ui-ux** | UI/UX design and implementation |
 | **document-writer** | Documentation writing |
 | **multimodal-looker** | Image and visual analysis |
-
+PW|## Skills (Bundled)
+ZX|
+PQ|These skill repositories are included directly in the bundle - no extra setup needed!
+NM|
+JD|| Skill | Description | Source |
+KM||--------|-------------|--------|
+RD|| **microsoft-skills** | Official Microsoft skills, MCP servers, custom agents | [GitHub](https://github.com/microsoft/skills) |
+TE|| **claude-skills-mcp** | MCP server for Claude Skills with vector search | [GitHub](https://github.com/K-Dense-AI/claude-skills-mcp) |
+YX|| **epismoai-skills** | Portable human-AI project operations | [GitHub](https://github.com/epismoai/skills) |
+BK|
+NZ|## Portability
 ## Portability
 
 This bundle is **fully portable**:
